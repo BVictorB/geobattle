@@ -1,0 +1,8 @@
+.sidebar {
+  top: 0;
+  right: 0;
+  position: absolute;
+  background: rgb(232, 232, 232);
+  height: 100vh;
+  width: 300px;
+}
