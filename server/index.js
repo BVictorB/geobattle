@@ -1,18 +1,32 @@
-const http = require('http')
-const express = require('express')
-const socketio = require('socket.io')
-const cors = require('cors')
+require('dotenv').config();
+
+const 
+  http = require('http'),
+  express = require('express'),
+  app = express(),
+  server = http.createServer(app),
+  io = require('socket.io')(server),
+  cors = require('cors'),
+  mongoose = require('mongoose'),
+  db = mongoose.connection,
+  router = require('./src/router')
+
+mongoose.connect(process.env.DB_URL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+})
+
+db.once('open', _ => {
+  console.log('Connected to MongoDB!')
+})
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users')
 
-const router = require('./router')
-
-const app = express()
-const server = http.createServer(app)
-const io = socketio(server)
-
-app.use(cors())
-app.use(router)
+app
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .use(cors())
+  .use(router)
 
 const location = { 
   coords: [48.8566969, 2.3514616],

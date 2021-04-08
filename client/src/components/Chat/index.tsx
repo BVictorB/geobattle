@@ -12,8 +12,6 @@ const Chat = ({ socket, name }: Props) => {
   const [message, setMessage] = useState<string>('')
   const [messages, setMessages] = useState<string[]>([])
   const [users, setUsers] = useState<string[]>([])
-  
-  console.log(messages)
 
   useEffect(() => {
     socket.on('message', (message: string) => {
