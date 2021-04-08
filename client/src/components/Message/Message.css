@@ -49,6 +49,16 @@
   .justifyEnd {
     justify-content: flex-end;
   }
+
+  .admin {
+    width: 100%;
+  }
+
+  .admin .messageBox {
+    max-width: 100%;
+    width: 100%;
+    background: #29ffe2;
+  }
   
   .colorWhite {
     color: white;

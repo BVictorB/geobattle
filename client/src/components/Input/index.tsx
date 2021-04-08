@@ -1,7 +1,14 @@
+import { Dispatch, FormEvent } from 'react'
 import './Input.css'
 
-const Input = ({ message, setMessage, sendMessage }) => (
-    <form onSubmit={(e) => sendMessage(e)} className="form">
+interface Props {
+  message: string,
+  setMessage: Dispatch<string>,
+  sendMessage: (e: FormEvent) => void
+}
+
+const Input = ({ message, setMessage, sendMessage }: Props) => (
+    <form onSubmit={sendMessage} className="form">
       <input 
         className="input" 
         type="text" 
@@ -11,6 +18,6 @@ const Input = ({ message, setMessage, sendMessage }) => (
       />
       <button className="sendButton" type="submit">Send</button>
     </form>
-);
+)
 
 export default Input
