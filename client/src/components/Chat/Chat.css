@@ -1,0 +1,19 @@
+.outerContainer {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #1A1A1D;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #e9e9e9;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+}

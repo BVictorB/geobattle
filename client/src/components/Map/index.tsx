@@ -19,7 +19,7 @@ const Map = ({ position }: Props) => {
       <MapContainer 
         className='map'
         whenCreated={(map: Leaflet.Map) => setMap(map)}
-        zoom={50}
+        zoom={30}
         doubleClickZoom={false}
         dragging={false}
         zoomControl={false}

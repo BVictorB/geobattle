@@ -1,19 +1,42 @@
-import { Dispatch, FormEvent } from 'react'
-import './index.css'
+import { useState, useEffect, FormEvent } from 'react'
+import { Socket } from 'socket.io-client'
+import { Input, Messages } from '@components'
+import './Chat.css'
 
 interface Props {
-  inputValue: string,
-  setInputValue: Dispatch<string>,
-  onSubmit: (e: FormEvent) => void
+  socket: Socket,
+  name: string
 }
 
-const Chat = ({ inputValue, setInputValue, onSubmit }: Props) => {
+const Chat = ({ socket, name }: Props) => {
+  const [message, setMessage] = useState<string>('')
+  const [messages, setMessages] = useState<string[]>([])
+  const [users, setUsers] = useState<string[]>([])
+  
+  useEffect(() => {
+    socket.on('message', (message: string) => {
+      setMessages(msgs => [ ...msgs, message ])
+    })
+    
+    socket.on('roomData', ({ users }: { users: string[] }) => {
+      setUsers(users)
+    })
+}, [])
+
+  const sendMessage = (e: FormEvent) => {
+    e.preventDefault()
+
+    if(message) {
+      socket.emit('sendMessage', message, () => setMessage(''))
+    }
+  }
+
   return (
-    <div className='sidebar'>
-      <form onSubmit={onSubmit}>
-        <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
-        <button type="submit">Submit</button>
-      </form>
+    <div className='outerContainer'>
+      <div className='container'>
+        <Messages messages={messages} name={name} />
+        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+      </div>
     </div>
   )
 }
