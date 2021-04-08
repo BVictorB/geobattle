@@ -1,8 +1,10 @@
 import { useEffect, useState, FormEvent } from 'react'
+import io from 'socket.io-client'
 import { Map, Chat } from '@components'
+import { roundNum, calcDist } from '@utils'
 
 const App = () => {
-  const [coords, setCoords] = useState<[number, number]>([52.3727598, 4.8936041])
+  const [coords, setCoords] = useState<[number, number]>()
   const [selectedCity, setSelectedCity] = useState<number>(0)
   const [inputValue, setInputValue] = useState<string>('')
 
@@ -17,28 +19,20 @@ const App = () => {
     setCoords(cities[selectedCity])
   }, [selectedCity])
 
-  const calcDistance = <T extends [number, number]>(firstCoords:T, secondCoords:T) => {
-    if (firstCoords === secondCoords) {
-      return 0
-    } else {
-      const 
-        [lat1, lon1] = firstCoords,
-        [lat2, lon2] = secondCoords,
-        radlat1 = Math.PI * lat1/180,
-        radlat2 = Math.PI * lat2/180,
-        radtheta = Math.PI * (lon1-lon2)/180
+  const [response, setResponse] = useState('')
 
-      let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
-      if (dist > 1) {
-        dist = 1
-      }
-      dist = Math.acos(dist)
-      dist = dist * 180/Math.PI
-      dist = dist * 60 * 1.1515
-      dist = dist * 1.609344
-      return dist
-    }
-  }
+  useEffect(() => {
+    const socket = io('/')
+    socket.on('connect', () => {
+      console.log('connected!')
+    })
+    socket.emit('test', 'test')
+    socket.on('test', data => {
+      setResponse(data)
+    })
+  }, [])
+
+  console.log(response)
 
   const getCoords = async (place: string) => {
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${place}&key=c2b0d7efe5404c009235e07bcaf81a3a`
@@ -66,17 +60,16 @@ const App = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const fetchedCoords = await getCoords(inputValue)
-    if (fetchedCoords) {
-      console.log(fetchedCoords)
-      const dist = calcDistance(fetchedCoords, coords)
-      console.log(dist)
+    if (fetchedCoords && coords) {
+      const dist = roundNum(calcDist(fetchedCoords, coords), 0)
+      console.log(dist < 5 ? 'Goed antwoord!' : `Fout antwoord... je zit er ${dist} km naast`)
     }
     setInputValue('')
   }
   
   return (
     <>
-      <Map position={coords}/>
+      {coords && <Map position={coords}/>}
       {selectedCity > 0 && <button onClick={prevCity}>prev</button>}
       {selectedCity < cities.length - 1 && <button onClick={nextCity}>next</button>}
       <Chat inputValue={inputValue} setInputValue={setInputValue} onSubmit={handleSubmit}/>
