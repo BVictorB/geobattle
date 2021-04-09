@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import queryString from 'query-string'
 import { io, Socket } from 'socket.io-client'
 import { Chat, Map } from '@components'
+import { roundNum } from '@utils'
 
 let socket: Socket
 
 const Room = () => {
   const [coords, setCoords] = useState<[number, number]>([0,0])
-  const [name, setName] = useState<string>(`${Math.random()}`)
+  const [name, setName] = useState<string>()
+  // const [name, setName] = useState<string>(`${roundNum(Math.random() * 100, 2)}`)
   const [room, setRoom] = useState<string>()
 
   const { id } = useParams<any>()
@@ -43,9 +44,23 @@ const Room = () => {
     })
   }, [])
 
+  const [nameInput, setNameInput] = useState<string>()
+
+  const submitName = (e: FormEvent) => {
+    e.preventDefault()
+    setName(nameInput)
+  }
+
   return (
     <>
-      {coords && <Map position={coords}/>}
+      {!name && <form onSubmit={submitName}>
+          <label>
+            Name
+            <input onChange={e => setNameInput(e.target.value)} type='text'/>
+            <button type='submit'>Submit</button>
+          </label>
+        </form>}
+      {coords && name && <Map position={coords}/>}
       {socket && name && <Chat socket={socket} name={name} />}
     </>
   )

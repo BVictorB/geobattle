@@ -1,12 +1,12 @@
-const Lobby = require('../models/lobby')
+const Room = require('../models/room')
 
 const createroom = (req, res) => {
-  const lobby = new Lobby()
-  lobby.rounds = req.body.rounds
-  lobby.time = req.body.time
+  const room = new Room()
+  room.rounds = req.body.rounds
+  room.time = req.body.time
 
-  lobby.save((err, lobby) => {
-    !err && res.json({ id: lobby.id })
+  room.save((err, room) => {
+    !err && res.json({ id: room.id })
   })
 }
 

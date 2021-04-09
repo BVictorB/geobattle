@@ -21,7 +21,7 @@ const Chat = ({ socket, name }: Props) => {
     socket.on('roomData', ({ users }: { users: string[] }) => {
       setUsers(users)
     })
-}, [])
+  }, [])
 
   const sendMessage = (e: FormEvent) => {
     e.preventDefault()

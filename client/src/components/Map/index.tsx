@@ -13,7 +13,8 @@ const ChangePosition = ({ map, position }:any) => {
 }
 
 const Map = ({ position }: Props) => {
-  const [map, setMap]:[any, any] = useState(null)
+  const [map, setMap] = useState<Leaflet.Map>()
+  
   const displayMap = useMemo(
     () => (
       <MapContainer 
@@ -39,8 +40,6 @@ const Map = ({ position }: Props) => {
       {map ? <ChangePosition map={map} position={position} /> : null}
     </>
   )
-
 }
-
 
 export default Map

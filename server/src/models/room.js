@@ -2,7 +2,7 @@ const
   mongoose = require('mongoose'),
   Schema = mongoose.Schema
 
-const lobbySchema = new Schema({
+const roomSchema = new Schema({
   rounds: {
     type: Number,
     required: true
@@ -10,9 +10,12 @@ const lobbySchema = new Schema({
   time: {
     type: Number,
     required: true
+  },
+  users: {
+    type: Array
   }
 })
 
-const Lobby = mongoose.model('lobbies', lobbySchema)
+const Room = mongoose.model('rooms', roomSchema)
 
-module.exports = Lobby
+module.exports = Room
