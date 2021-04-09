@@ -3,6 +3,10 @@ const
   Schema = mongoose.Schema
 
 const roomSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
   rounds: {
     type: Number,
     required: true

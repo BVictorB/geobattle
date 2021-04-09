@@ -53,10 +53,10 @@ io.on('connect', (socket) => {
     const thisUser = roomDB.users.find(user => user.id === socket.id)
 
     socket.join(room)
-    socket.emit('message', { user: 'admin', text: `${thisUser.username}, welcome to room ${room}.`})
+    socket.emit('message', { user: 'admin', text: `${thisUser.username}, welcome to room ${roomDB.name}.`})
     socket.broadcast.to(room).emit('message', { user: 'admin', text: `${thisUser.username} has joined!` })
 
-    io.to(room).emit('roomData', { room: room, users: 'temp' })
+    io.to(room).emit('roomData', { room: roomDB.name, users: roomDB.users })
     io.to(room).emit('coords', location)
 
     callback()
@@ -78,13 +78,15 @@ io.on('connect', (socket) => {
   socket.on('disconnect', async () => {
     const roomDB = await Room.findOne({ _id: currentRoom })
     const thisUser = roomDB.users.find(user => user.id === socket.id)
-
-    Room.updateOne({ _id: currentRoom }, {
+    
+    await Room.updateOne({ _id: currentRoom }, {
       $pull: { users: { id: socket.id } }
     }, err => err && console.log(err))
 
+    const updatedRoom = await Room.findOne({ _id: currentRoom })
+
     io.to(currentRoom).emit('message', { user: 'admin', text: `${thisUser.username} has left.` })
-    io.to(currentRoom).emit('roomData', { room: currentRoom, users: 'temp'})
+    io.to(currentRoom).emit('roomData', { room: updatedRoom.name, users: updatedRoom.users })
   })
 })
 

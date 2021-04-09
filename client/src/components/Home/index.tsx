@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Redirect } from 'react-router'
-
-import './Join.css';
+import './Home.css'
 
 const Join = () => {
   const [room, setRoom] = useState(null)
@@ -13,6 +12,7 @@ const Join = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        name: 'Testroom',
         rounds: 10,
         time: 60
       })

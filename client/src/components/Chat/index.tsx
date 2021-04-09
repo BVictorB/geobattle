@@ -8,20 +8,30 @@ interface Props {
   name: string
 }
 
+type Users = {
+  id: string, 
+  points: number, 
+  username: string
+}
+
 const Chat = ({ socket, name }: Props) => {
+  const [room, setRoom] = useState<string>()
   const [message, setMessage] = useState<string>('')
   const [messages, setMessages] = useState<string[]>([])
-  const [users, setUsers] = useState<string[]>([])
+  const [users, setUsers] = useState<Users[]>()
 
   useEffect(() => {
     socket.on('message', (message: string) => {
       setMessages(msgs => [ ...msgs, message ])
     })
-    
-    socket.on('roomData', ({ users }: { users: string[] }) => {
+  }, [])
+
+  useEffect(() => {
+    socket.on('roomData', ({ users, room }: { users: Users[], room: string }) => {
+      setRoom(room)
       setUsers(users)
     })
-  }, [])
+  })
 
   const sendMessage = (e: FormEvent) => {
     e.preventDefault()
@@ -34,6 +44,8 @@ const Chat = ({ socket, name }: Props) => {
   return (
     <div className='outerContainer'>
       <div className='container'>
+        {room && <h2>{room}</h2>}
+        {users && users.map(user => <p key={user.id}>{user.username}: {user.points}</p>)}
         <Messages messages={messages} name={name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
