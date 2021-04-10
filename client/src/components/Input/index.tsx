@@ -15,6 +15,7 @@ const Input = ({ message, setMessage, sendMessage }: Props) => (
       placeholder="Type a message..." 
       value={message} 
       onChange={(e) => setMessage(e.target.value)} 
+      autoFocus
     />
     <button className="sendButton" type="submit">Send</button>
   </form>

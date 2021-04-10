@@ -33,10 +33,20 @@ const location = {
 
 const Room = require('./src/models/room')
 
+const watchRoom = async (room) => {
+  const roomDB = await Room.watch({ _id: room })
+
+  roomDB.on('change', async () => {
+    const data = await Room.findOne({ _id: room })
+    io.to(room).emit('roomData', { ...data._doc })
+  })
+}
+
 io.on('connect', (socket) => {  
   let currentRoom
 
   socket.on('join', async ({ name, room }, callback) => {
+    watchRoom(room)
     currentRoom = room
     
     const userData = {
@@ -49,14 +59,12 @@ io.on('connect', (socket) => {
       $addToSet: { users: userData }
     }, err => err && console.log(err))
 
-    const roomDB = await Room.findOne({ _id: currentRoom }, err => err && console.log(err))
-    const thisUser = roomDB.users.find(user => user.id === socket.id)
+    const data = await Room.findOne({ _id: currentRoom }, err => err && console.log(err))
+    const thisUser = data.users.find(user => user.id === socket.id)
 
     socket.join(room)
-    socket.emit('message', { user: 'admin', text: `${thisUser.username}, welcome to room ${roomDB.name}.`})
+    socket.emit('message', { user: 'admin', text: `${thisUser.username}, welcome to room ${data.name}.`})
     socket.broadcast.to(room).emit('message', { user: 'admin', text: `${thisUser.username} has joined!` })
-
-    io.to(room).emit('roomData', { room: roomDB.name, users: roomDB.users })
     io.to(room).emit('coords', location)
 
     callback()
@@ -68,6 +76,9 @@ io.on('connect', (socket) => {
 
     if (message.toLowerCase().includes(location.city)) {
       io.to(currentRoom).emit('message', { user: 'admin', text: `${thisUser.username} guessed the right city!` })
+      Room.updateOne({ 'users.id': socket.id }, { 
+        $inc: { 'users.$.points': 10 }
+      }, err => err && console.log(err))
     } else {
       io.to(currentRoom).emit('message', { user: thisUser.username, text: message })
     }
@@ -77,16 +88,16 @@ io.on('connect', (socket) => {
 
   socket.on('disconnect', async () => {
     const roomDB = await Room.findOne({ _id: currentRoom })
-    const thisUser = roomDB.users.find(user => user.id === socket.id)
+
+    if (roomDB) {
+      const thisUser = roomDB.users.find(user => user.id === socket.id)
     
-    await Room.updateOne({ _id: currentRoom }, {
-      $pull: { users: { id: socket.id } }
-    }, err => err && console.log(err))
-
-    const updatedRoom = await Room.findOne({ _id: currentRoom })
-
-    io.to(currentRoom).emit('message', { user: 'admin', text: `${thisUser.username} has left.` })
-    io.to(currentRoom).emit('roomData', { room: updatedRoom.name, users: updatedRoom.users })
+      await Room.updateOne({ _id: currentRoom }, {
+        $pull: { users: { id: socket.id } }
+      }, err => err && console.log(err))
+  
+      io.to(currentRoom).emit('message', { user: 'admin', text: `${thisUser.username} has left.` })
+    }
   })
 })
 

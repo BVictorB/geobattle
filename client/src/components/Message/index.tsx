@@ -9,27 +9,27 @@ interface Props {
 }
 
 const Message = ({message: { user, text }, name}: Props) => {
-    const ownMessage = user === name 
+    const ownMessage = user === name
+    const admin = user === 'admin'
 
-    return (
-      ownMessage
-        ? (
-            <div className="messageContainer justifyEnd">
-              <p className="sentText pr-10">{user}</p>
-              <div className="messageBox backgroundBlue">
-                <p className="messageText colorWhite">{text}</p>
-              </div>
-            </div>
-        )
-        : (
-            <div className={user === 'admin' ? 'messageContainer admin' : 'messageContainer justifyStart'}>
-              {user !== 'admin' && <p className="sentText pl-10">{user}</p>}
-              <div className="messageBox backgroundLight">
-                <p className="messageText colorDark">{text}</p>
-              </div>
-            </div>
-        ) 
-    )
+    if (admin) {
+      return (
+        <div className='message-admin'>
+          <div className="message-container">
+            <p>{text}</p>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className={ownMessage ? 'message-own' : 'message-other'}>
+          <div className="message-container">
+            {!ownMessage && <p className='user'>{user}</p>}
+            <p>{text}</p>
+          </div>
+        </div>
+      )
+    }
 }
 
 export default Message

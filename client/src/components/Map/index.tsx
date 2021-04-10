@@ -1,10 +1,12 @@
 import { useState, useMemo, useEffect } from 'react'
 import Leaflet from 'leaflet'
+import { Socket } from 'socket.io-client'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import './Map.css'
 
 interface Props {
-  position: [number, number]
+  socket: Socket
 }
 
 const ChangePosition = ({ map, position }:any) => {
@@ -12,8 +14,15 @@ const ChangePosition = ({ map, position }:any) => {
   return <></>
 }
 
-const Map = ({ position }: Props) => {
+const Map = ({ socket }: Props) => {
+  const [coords, setCoords] = useState<[number, number]>([0,0])
   const [map, setMap] = useState<Leaflet.Map>()
+
+  useEffect(() => {
+    socket.on('coords', ({ coords }: { coords: [number, number] }) => {
+      setCoords(coords)
+    })
+  }, [socket])
   
   const displayMap = useMemo(
     () => (
@@ -37,7 +46,7 @@ const Map = ({ position }: Props) => {
   return (
     <>
       {displayMap}
-      {map ? <ChangePosition map={map} position={position} /> : null}
+      {map && coords ? <ChangePosition map={map} position={coords} /> : null}
     </>
   )
 }

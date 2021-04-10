@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Home, Room } from '@components'
+import { Home, Room } from '@screens'
 
 const App = () => (
   <Router>
