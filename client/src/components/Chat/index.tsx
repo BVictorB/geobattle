@@ -1,6 +1,7 @@
 import { useState, useEffect, FormEvent } from 'react'
 import { Socket } from 'socket.io-client'
 import { Input, Messages } from '@components'
+import { MessageInterface } from '@interfaces'
 import './Chat.css'
 
 interface Props {
@@ -10,10 +11,10 @@ interface Props {
 
 const Chat = ({ socket, name }: Props) => {
   const [message, setMessage] = useState<string>('')
-  const [messages, setMessages] = useState<string[]>([])
+  const [messages, setMessages] = useState<MessageInterface[]>([])
 
   useEffect(() => {
-    socket.on('message', (message: string) => {
+    socket.on('message', (message: MessageInterface) => {
       setMessages(prevState => [ ...prevState, message ])
     })
   }, [])

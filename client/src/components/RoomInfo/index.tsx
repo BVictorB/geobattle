@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import { Socket } from 'socket.io-client'
-import { RoomData } from '@interfaces'
+import { RoomInterface } from '@interfaces'
 
 interface Props {
   socket: Socket
 }
 
 const RoomInfo = ({ socket }: Props) => {
-  const [roomData, setRoomData] = useState<RoomData>()
+  const [roomData, setRoomData] = useState<RoomInterface>()
 
   useEffect(() => {
-    socket.on('roomData', (data: RoomData) => {
+    socket.on('roomData', (data: RoomInterface) => {
       console.log(data)
       setRoomData(data)
     })

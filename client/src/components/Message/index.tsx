@@ -1,10 +1,8 @@
+import { MessageInterface } from '@interfaces'
 import './Message.css'
 
 interface Props {
-  message: {
-    user: string,
-    text: string
-  },
+  message: MessageInterface,
   name: string
 }
 
