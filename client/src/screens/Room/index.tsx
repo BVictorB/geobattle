@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { io, Socket } from 'socket.io-client'
 import { Chat, Map, RoomInfo, NameInput } from '@components'
+import { RoomInterface } from '@interfaces'
 import './Room.css'
 
 let socket: Socket
@@ -9,6 +10,7 @@ let socket: Socket
 const Room = () => {
   const [name, setName] = useState<string>()
   const [room, setRoom] = useState<string>()
+  const [playing, setPlaying] = useState<boolean>(true)
   const { id } = useParams<any>()
 
   useEffect(() => {
@@ -23,6 +25,16 @@ const Room = () => {
   useEffect(() => {
     socket = io('/')
   }, [])
+
+  useEffect(() => {
+    socket.on('roomData', (data: RoomInterface) => {
+      console.log(data.round, data.rounds)
+      if (data.round === data.rounds) {
+        setPlaying(false)
+      }
+    })
+  }, [socket])
+  
 
   useEffect(() => {
     if (name && room) {
@@ -44,7 +56,7 @@ const Room = () => {
   return (
     <div className='room-container'>
       {!name && <NameInput submitName={submitName} setNameInput={setNameInput} />}
-      {socket && name && <Map socket={socket}/>}
+      {socket && name && playing && <Map socket={socket}/>}
       {name && <div className='outerContainer'>
         <div className='container'>
           {socket && <RoomInfo socket={socket} />}

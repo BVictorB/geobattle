@@ -9,7 +9,12 @@ export interface RoomInterface {
   users: UserInterface[],
   name: string,
   rounds: number,
-  time: number
+  time: number,
+  coords: {
+    coords: [number, number],
+    city: string
+  }[],
+  round: number
 }
 
 export interface MessageInterface {

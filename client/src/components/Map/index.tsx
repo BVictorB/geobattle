@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import Leaflet from 'leaflet'
 import { Socket } from 'socket.io-client'
 import { MapContainer, TileLayer } from 'react-leaflet'
+import { RoomInterface } from '@interfaces'
 import 'leaflet/dist/leaflet.css'
 import './Map.css'
 
@@ -19,8 +20,10 @@ const Map = ({ socket }: Props) => {
   const [map, setMap] = useState<Leaflet.Map>()
 
   useEffect(() => {
-    socket.on('coords', ({ coords }: { coords: [number, number] }) => {
-      setCoords(coords)
+    socket.on('roomData', (data: RoomInterface) => {
+      if (data.round !== data.rounds) {
+        setCoords(data.coords[data.round].coords)
+      }
     })
   }, [socket])
   

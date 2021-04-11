@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Socket } from 'socket.io-client'
 import { RoomInterface } from '@interfaces'
+import './RoomInfo.css'
 
 interface Props {
   socket: Socket
@@ -11,15 +12,14 @@ const RoomInfo = ({ socket }: Props) => {
 
   useEffect(() => {
     socket.on('roomData', (data: RoomInterface) => {
-      console.log(data)
       setRoomData(data)
     })
-  })
+  }, [socket])
 
   return (
-    <div>
+    <div className='roominfo-container'>
       <h2>{roomData && roomData.name}</h2>
-      {roomData && roomData.users.map(user => <p className='scoreboard' key={user.id}>{user.username}: {user.points}</p>)}    
+      {roomData && roomData.users.sort((a, b) => b.points - a.points).map((user, i) => <p className='scoreboard' key={user.id}>{i + 1}: {user.username}: {user.points}</p>)}    
     </div>
   )
 }

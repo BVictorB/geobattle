@@ -17,6 +17,13 @@ const roomSchema = new Schema({
   },
   users: {
     type: Array
+  },
+  coords: {
+    type: Array
+  },
+  round: {
+    type: Number,
+    default: 0
   }
 })
 
