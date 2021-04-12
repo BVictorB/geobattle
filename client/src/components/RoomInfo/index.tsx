@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Socket } from 'socket.io-client'
 import { RoomInterface } from '@interfaces'
-import './RoomInfo.css'
+import './RoomInfo.scss'
 
 interface Props {
   socket: Socket

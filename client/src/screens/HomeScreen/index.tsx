@@ -1,8 +1,9 @@
 import { FormEvent, useState } from 'react'
 import { Redirect } from 'react-router'
-import './Home.css'
+import { Input } from '@components'
+import './HomeScreen.scss'
 
-const Join = () => {
+const HomeScreen = () => {
   const [name, setName] = useState<string>()
   const [rounds, setRounds] = useState<number>()
   const [time, setTime] = useState<number>()
@@ -36,18 +37,21 @@ const Join = () => {
   return (
     <div className='home-container'>
       <form onSubmit={createRoom}>
-        <label>
-          Room name
-          <input onChange={e => setName(e.target.value)} type='text' autoFocus/>
-        </label>
-        <label>
-          Rounds
-          <input onChange={e => setRounds(Number(e.target.value))} type='number'/>
-        </label>
-        <label>
-          Time per round
-          <input onChange={e => setTime(Number(e.target.value))} type='number'/>
-        </label>
+        <Input 
+          label={'Room name'}
+          onChange={setName}
+          autoFocus={true}
+        />
+        <Input 
+          label={'Rounds'}
+          type={'number'} 
+          onChange={(e) => setRounds(Number(e))} 
+        />
+        <Input 
+          label={'Time per round'} 
+          type={'number'} 
+          onChange={(e) => setTime(Number(e))} 
+        />
         <button type='submit'>Create room</button>
       </form>
       {room && <Redirect to={`/room/${room}`}/> }
@@ -55,4 +59,4 @@ const Join = () => {
   )
 }
 
-export default Join
+export default HomeScreen

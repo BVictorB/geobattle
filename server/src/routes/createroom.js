@@ -28,6 +28,26 @@ const locations = [
   {
     coords: [41.8933203, 12.4829321],
     city: 'rome'
+  },
+  {
+    coords: [51.5073219, -0.1276474],
+    city: 'london'
+  },
+  {
+    coords: [50.8465573, 4.351697],
+    city: 'brussels'
+  },
+  {
+    coords: [38.7077507, -9.1365919],
+    city: 'lisbon'
+  },
+  {
+    coords: [40.7127281, -74.0060152],
+    city: 'new york'
+  },
+  {
+    coords: [37.9839412, 23.7283052],
+    city: 'athens'
   }
 ]
 

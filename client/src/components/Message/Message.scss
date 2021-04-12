@@ -1,0 +1,39 @@
+.message {
+  display: flex;
+  padding: 0 1em;
+  justify-content: flex-end;
+
+  &__container {
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    display: inline-block;
+    margin: .5rem 0;
+    background: #F3F3F3;
+    max-width: 80%;
+
+    p {
+      width: 100%;
+      font-size: 1.1em;
+      word-wrap: break-word;
+    }
+  }
+
+  &__other {
+    justify-content: flex-start;
+  }
+
+  &__admin {
+    width: 100%;
+
+    .message__container {
+      background: #7cda3d;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  &__user {
+    color: #828282;
+    font-weight: 600;
+  }
+}

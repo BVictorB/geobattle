@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { Message } from '@components'
 import { MessageInterface } from '@interfaces'
-import './Messages.css'
+import './Messages.scss'
 
 interface Props {
   messages: MessageInterface[],

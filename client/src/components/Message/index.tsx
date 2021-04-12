@@ -1,5 +1,5 @@
 import { MessageInterface } from '@interfaces'
-import './Message.css'
+import './Message.scss'
 
 interface Props {
   message: MessageInterface,
@@ -12,17 +12,17 @@ const Message = ({message: { user, text }, name}: Props) => {
 
     if (admin) {
       return (
-        <div className='message-admin'>
-          <div className="message-container">
+        <div className='message message__admin'>
+          <div className='message__container'>
             <p>{text}</p>
           </div>
         </div>
       )
     } else {
       return (
-        <div className={ownMessage ? 'message-own' : 'message-other'}>
-          <div className="message-container">
-            {!ownMessage && <p className='user'>{user}</p>}
+        <div className={ownMessage ? 'message message__own' : 'message message__other'}>
+          <div className='message__container'>
+            {!ownMessage && <p className='message__user'>{user}</p>}
             <p>{text}</p>
           </div>
         </div>

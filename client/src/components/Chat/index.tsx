@@ -1,8 +1,8 @@
 import { useState, useEffect, FormEvent } from 'react'
 import { Socket } from 'socket.io-client'
-import { Input, Messages } from '@components'
+import { ChatInput, Messages } from '@components'
 import { MessageInterface } from '@interfaces'
-import './Chat.css'
+import './Chat.scss'
 
 interface Props {
   socket: Socket,
@@ -30,7 +30,7 @@ const Chat = ({ socket, name }: Props) => {
   return (
     <>
       {messages && <Messages messages={messages} name={name} />}
-      <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+      <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
     </>
   )
 }

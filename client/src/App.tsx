@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Home, Room } from '@screens'
+import { HomeScreen, RoomScreen } from '@screens'
 
 const App = () => (
   <Router>
-    <Route path='/' exact component={Home} />
-    <Route path='/room/:id' component={Room} />
+    <Route path='/' exact component={HomeScreen} />
+    <Route path='/room/:id' component={RoomScreen} />
   </Router>
 )
 

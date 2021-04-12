@@ -4,7 +4,7 @@ import { Socket } from 'socket.io-client'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import { RoomInterface } from '@interfaces'
 import 'leaflet/dist/leaflet.css'
-import './Map.css'
+import './Map.scss'
 
 interface Props {
   socket: Socket
@@ -26,7 +26,7 @@ const Map = ({ socket }: Props) => {
       }
     })
   }, [socket])
-  
+
   const displayMap = useMemo(
     () => (
       <MapContainer 

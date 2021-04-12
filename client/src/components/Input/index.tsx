@@ -1,24 +1,38 @@
-import { Dispatch, FormEvent } from 'react'
-import './Input.css'
+import { Dispatch } from 'react'
+import './Input.scss'
 
 interface Props {
-  message: string,
-  setMessage: Dispatch<string>,
-  sendMessage: (e: FormEvent) => void
+  type?: string,
+  label?: string,
+  value?: string,
+  onChange: Dispatch<string>,
+  autoFocus?: boolean,
+  placeholder?: string
 }
 
-const Input = ({ message, setMessage, sendMessage }: Props) => (
-  <form onSubmit={sendMessage} className="form">
-    <input 
-      className="input" 
-      type="text" 
-      placeholder="Type a message..." 
-      value={message} 
-      onChange={(e) => setMessage(e.target.value)} 
-      autoFocus
-    />
-    <button className="sendButton" type="submit">Send</button>
-  </form>
+const Input = ({ type, label, value, onChange, autoFocus, placeholder }: Props) => (
+  <div className='input'>
+    {label ? 
+      <label>
+        {label}
+        <input
+          type={type ? type : 'text'}
+          placeholder={placeholder}
+          value={value && value}
+          onChange={e => onChange(e.target.value)}
+          autoFocus={autoFocus && autoFocus}
+        />
+      </label> 
+    :
+      <input
+        type={type ? type : 'text'}
+        placeholder={placeholder}
+        value={value && value}
+        onChange={e => onChange(e.target.value)}
+        autoFocus={autoFocus && autoFocus}
+      />
+    }
+  </div>
 )
 
 export default Input
