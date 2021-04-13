@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react'
 import { Redirect } from 'react-router'
 import { Input } from '@components'
-import './HomeScreen.scss'
+import './Home.scss'
 
-const HomeScreen = () => {
+const Home = () => {
   const [name, setName] = useState<string>()
   const [rounds, setRounds] = useState<number>()
   const [time, setTime] = useState<number>()
@@ -59,4 +59,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default Home

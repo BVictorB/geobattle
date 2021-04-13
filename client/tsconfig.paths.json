@@ -5,7 +5,7 @@
       "@components": ["components"],
       "@interfaces": ["interfaces"],
       "@utils": ["utils"],
-      "@screens": ["screens"]
+      "@pages": ["pages"]
     }
   }
 }

@@ -1,5 +1,6 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { Input } from '@components'
+import { TokenContext } from '../../TokenContext'
 
 interface Auth {
   auth: boolean,
@@ -7,10 +8,10 @@ interface Auth {
   message?: string
 }
 
-const LoginScreen = () => {
+const Login = () => {
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
-  const [token, setToken] = useState<any>(null)
+  const { token, setToken } = useContext(TokenContext)
 
   const login = (e: FormEvent) => {
     e.preventDefault()
@@ -78,4 +79,4 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+export default Login

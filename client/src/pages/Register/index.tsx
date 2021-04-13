@@ -1,10 +1,12 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, useContext } from 'react'
 import { Input } from '@components'
+import { TokenContext } from '../../TokenContext'
 
-const RegisterScreen = () => {
+const Register = () => {
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
   const [repeatedPassword, setRepeatedPassword] = useState<string>()
+  const { token, setToken } = useContext(TokenContext)
 
   const register = (e: FormEvent) => {
     e.preventDefault()
@@ -54,4 +56,4 @@ const RegisterScreen = () => {
   )
 }
 
-export default RegisterScreen
+export default Register
