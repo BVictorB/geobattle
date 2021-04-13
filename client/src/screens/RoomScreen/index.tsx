@@ -15,10 +15,10 @@ const Room = () => {
 
   useEffect(() => {
     fetch(`/getroom/${id}`)
-      .then(res => res.json())
+      .then(res => res.ok && res.json())
       .then(data => setRoom(data._id))
       .catch((err) => {
-        console.info(err)
+        console.error(`Error: ${err}`)
       })
   }, [])
 
