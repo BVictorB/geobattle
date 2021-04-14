@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import Leaflet from 'leaflet'
 import { Socket } from 'socket.io-client'
 import { MapContainer, TileLayer } from 'react-leaflet'
@@ -15,7 +15,7 @@ const ChangePosition = ({ map, position }:any) => {
   return <></>
 }
 
-const Map = ({ socket }: Props) => {
+const Map: React.FC<Props> = ({ socket }) => {
   const [coords, setCoords] = useState<[number, number]>([0,0])
   const [map, setMap] = useState<Leaflet.Map>()
 

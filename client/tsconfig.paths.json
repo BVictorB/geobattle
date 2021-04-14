@@ -5,7 +5,8 @@
       "@components": ["components"],
       "@interfaces": ["interfaces"],
       "@utils": ["utils"],
-      "@pages": ["pages"]
+      "@pages": ["pages"],
+      "@contexts": ["contexts"]
     }
   }
 }

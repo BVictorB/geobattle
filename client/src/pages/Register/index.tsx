@@ -1,8 +1,15 @@
-import { FormEvent, useState, useContext } from 'react'
+import React, { FormEvent, useState, useContext } from 'react'
+import { Redirect } from 'react-router-dom'
 import { Input } from '@components'
-import { TokenContext } from '../../TokenContext'
+import { TokenContext } from '@contexts'
 
-const Register = () => {
+interface Auth {
+  auth: boolean,
+  token?: string,
+  message?: string
+}
+
+const Register: React.FC = () => {
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
   const [repeatedPassword, setRepeatedPassword] = useState<string>()
@@ -25,10 +32,18 @@ const Register = () => {
     
       fetch('/register', registerDetails)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => handleLogin(data))
         .catch((err) => console.log(err))
     } else {
       console.log('Please fill in all the fields')
+    }
+  }
+
+  const handleLogin = (data: Auth) => {
+    if (data.auth) {
+      setToken(data.token)
+    } else {
+      setToken(null)
     }
   }
 
@@ -52,6 +67,7 @@ const Register = () => {
         />
         <button type='submit'>Register</button>
       </form>
+      {token && <Redirect to='/' />}
     </div>
   )
 }

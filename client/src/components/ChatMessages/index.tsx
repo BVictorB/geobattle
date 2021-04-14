@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react'
-import { Message } from '@components'
+import React, { useRef, useEffect } from 'react'
+import { ChatMessage } from '@components'
 import { MessageInterface } from '@interfaces'
 import './Messages.scss'
 
@@ -8,7 +8,7 @@ interface Props {
   name: string
 }
 
-const Messages = ({ messages, name }: Props) => {
+const Messages: React.FC<Props> = ({ messages, name }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Messages = ({ messages, name }: Props) => {
   
   return (
     <div className="messages">
-      {messages.map((message, i) => <Message key={i} message={message} name={name}/>)}
+      {messages.map((message, i) => <ChatMessage key={i} message={message} name={name}/>)}
       <div ref={messagesEndRef} />
     </div>
   )

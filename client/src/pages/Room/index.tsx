@@ -1,17 +1,19 @@
-import { FormEvent, useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import React, { FormEvent, useEffect, useState, useContext } from 'react'
+import { useParams, Redirect } from 'react-router'
 import { io, Socket } from 'socket.io-client'
 import { Chat, Map, RoomInfo, Input } from '@components'
 import { RoomInterface } from '@interfaces'
+import { TokenContext } from '@contexts'
 import './RoomScreen.scss'
 
 let socket: Socket
 
-const Room = () => {
+const Room: React.FC = () => {
   const [name, setName] = useState<string>()
   const [room, setRoom] = useState<string>()
   const [playing, setPlaying] = useState<boolean>(true)
   const { id } = useParams<any>()
+  const { token } = useContext(TokenContext)
 
   useEffect(() => {
     fetch(`/getroom/${id}`)
@@ -20,7 +22,7 @@ const Room = () => {
       .catch((err) => {
         console.error(`Error: ${err}`)
       })
-  }, [])
+  }, [id])
 
   useEffect(() => {
     socket = io('/')
@@ -32,7 +34,7 @@ const Room = () => {
         setPlaying(false)
       }
     })
-  }, [socket])
+  }, [])
 
   useEffect(() => {
     if (name && room) {
@@ -73,6 +75,7 @@ const Room = () => {
         <div className='container'>
           {socket && <RoomInfo socket={socket} />}
           {socket && <Chat socket={socket} name={name} />}
+          {!token && <Redirect to='/login' />}
         </div>
       </div>}
     </div>

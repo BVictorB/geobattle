@@ -1,6 +1,7 @@
-import { FormEvent, useContext, useState } from 'react'
+import React, { FormEvent, useContext, useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import { Input } from '@components'
-import { TokenContext } from '../../TokenContext'
+import { TokenContext } from '@contexts'
 
 interface Auth {
   auth: boolean,
@@ -8,7 +9,7 @@ interface Auth {
   message?: string
 }
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
   const { token, setToken } = useContext(TokenContext)
@@ -45,20 +46,6 @@ const Login = () => {
     }
   }
 
-  const checkToken = () => {
-    const authDetails = {
-      method: 'GET',
-      headers: {
-        'x-access-token': token
-      }
-    }
-    
-    fetch('/auth', authDetails)
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
-
   return (
     <div className='home-container'>
       <form onSubmit={login}>
@@ -73,8 +60,11 @@ const Login = () => {
           onChange={setPassword}
         />
         <button type='submit'>Login</button>
+        <Link to='/register'>
+          <button>Register</button>
+        </Link>
       </form>
-      <button onClick={checkToken}>Test token</button>
+      {token && <Redirect to='/' />}
     </div>
   )
 }
