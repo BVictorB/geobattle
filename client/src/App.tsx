@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { Home, Room, Rooms, Register, Login, Create } from '@pages'
 import { Navigation } from '@components'
@@ -7,6 +7,11 @@ import { TokenContext } from '@contexts'
 const App = () => {
   const [token, setToken] = useState<string | null>(null)
   const tokenValue = useMemo(() => ({ token, setToken }), [token, setToken])
+
+  useEffect(() => {
+    const storedToken = window.localStorage.getItem('token')
+    storedToken && !token && setToken(storedToken)
+  }, [])
 
   return (
     <Router>

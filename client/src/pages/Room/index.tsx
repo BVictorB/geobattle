@@ -9,7 +9,7 @@ import './RoomScreen.scss'
 let socket: Socket
 
 const Room: React.FC = () => {
-  const [name, setName] = useState<string>()
+  const [name, setName] = useState<string>('temp')
   const [room, setRoom] = useState<string>()
   const [playing, setPlaying] = useState<boolean>(true)
   const { id } = useParams<any>()
@@ -37,41 +37,16 @@ const Room: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (name && room) {
-      socket.emit('join', { name, room }, (error: string) => {
-        if(error) {
-          alert(error)
-        }
-      })
+    if (token && room) {
+      socket.emit('join', { token, room }, 
+      (name: string) => setName(name))
     }
-  }, [name, room])
-
-  const [nameInput, setNameInput] = useState<string>()
-
-  const submitName = (e: FormEvent) => {
-    e.preventDefault()
-    setName(nameInput)
-  }
-
-  if (!name) {
-    return (
-      <div className='room-container'>
-        <form onSubmit={submitName}>
-          <Input 
-            label={'Name'}
-            onChange={setNameInput}
-            autoFocus={true}
-          />
-          <button className='name-button' type='submit'>Join room</button>
-        </form>
-      </div>
-    )
-  }
+  }, [token, room])
 
   return (
     <div className='room-container'>
-      {socket && name && playing && <Map socket={socket}/>}
-      {name && <div className='outerContainer'>
+      {socket && playing && <Map socket={socket}/>}
+      {<div className='outerContainer'>
         <div className='container'>
           {socket && <RoomInfo socket={socket} />}
           {socket && <Chat socket={socket} name={name} />}

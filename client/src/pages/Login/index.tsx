@@ -39,8 +39,9 @@ const Login: React.FC = () => {
   }
 
   const handleLogin = (data: Auth) => {
-    if (data.auth) {
+    if (data.auth && data.token) {
       setToken(data.token)
+      window.localStorage.setItem('token', data.token)
     } else {
       setToken(null)
     }

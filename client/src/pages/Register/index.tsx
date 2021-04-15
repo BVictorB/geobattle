@@ -11,6 +11,7 @@ interface Auth {
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>()
+  const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
   const [repeatedPassword, setRepeatedPassword] = useState<string>()
   const { token, setToken } = useContext(TokenContext)
@@ -18,15 +19,16 @@ const Register: React.FC = () => {
   const register = (e: FormEvent) => {
     e.preventDefault()
 
-    if (email && password === repeatedPassword) {
+    if (email && username && password === repeatedPassword) {
       const registerDetails = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          password: password
+          email,
+          username,
+          password
         })
       }
     
@@ -54,6 +56,10 @@ const Register: React.FC = () => {
           label={'Email adress'}
           onChange={setEmail}
           autoFocus={true}
+        />
+        <Input 
+          label={'Username'}
+          onChange={setUsername}
         />
         <Input 
           label={'Password'}

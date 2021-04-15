@@ -6,14 +6,20 @@ import './Navigation.scss'
 const Navigation: React.FC = () => {
   const { token, setToken } = useContext(TokenContext)
 
+  const logout = () => {
+    setToken(null)
+    window.localStorage.removeItem('token')
+  }
+
   return (
     <nav>
       {token ?
         <>
           <Link to='/'>Home</Link>
           <Link to='/rooms'>Rooms</Link>
+          <Link to='/join'>Join Room</Link>
           <Link to='/create'>Create Room</Link>
-          <button onClick={() => setToken(null)}>Log out</button>
+          <button onClick={() => logout()}>Log out</button>
         </> 
       :
         <>
@@ -21,7 +27,6 @@ const Navigation: React.FC = () => {
           <Link to='/login'>Login</Link>
         </>
       }
-      <Link to='/about'>About</Link>
     </nav>
   )
 }

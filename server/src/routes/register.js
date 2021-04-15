@@ -2,9 +2,9 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 const register = async (req, res) => {
-  const { email, password } = req.body
+  const { email, username, password } = req.body
 
-  if (email && password) {
+  if (email && username && password) {
     const foundUser = await User.findOne({ email: email })
     
     if (foundUser) {
@@ -17,6 +17,7 @@ const register = async (req, res) => {
 
     const user = new User()
     user.email = email
+    user.username = username
     user.password = password
 
     user.save((err, user) => {
