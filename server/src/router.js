@@ -12,8 +12,8 @@ const
   authenticate = require('./middleware/authenticate')
 
 router
-  .post('/createroom', createroom)
-  .get('/getroom/:id', getroom)
+  .post('/createroom', authenticate, createroom)
+  .get('/getroom/:id', authenticate, getroom)
   .get('/auth', authenticate, auth)
   .post('/register', register)
   .post('/login', login)

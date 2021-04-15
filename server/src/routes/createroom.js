@@ -61,7 +61,10 @@ const createroom = (req, res) => {
   room.coords = pickedLocations
 
   room.save((err, room) => {
-    !err && res.json({ id: room.id })
+    !err && res.json({ 
+      auth: true,
+      id: room.id 
+    })
   })
 }
 

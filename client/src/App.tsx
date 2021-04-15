@@ -11,7 +11,7 @@ const App = () => {
   useEffect(() => {
     const storedToken = window.localStorage.getItem('token')
     storedToken && !token && setToken(storedToken)
-  }, [])
+  }, [token])
 
   return (
     <Router>

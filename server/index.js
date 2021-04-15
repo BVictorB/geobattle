@@ -50,9 +50,15 @@ io.on('connect', (socket) => {
     currentRoom = room
 
     await jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-      const data = await User.findOne({ _id: decoded.id })
-      connectedUser = data
+      if (decoded) {
+        const data = await User.findOne({ _id: decoded.id })
+        connectedUser = data
+      }
     })
+
+    if (!connectedUser) {
+      return
+    }
     
     const userData = {
       id: connectedUser.id,
@@ -74,6 +80,10 @@ io.on('connect', (socket) => {
   })
 
   socket.on('sendMessage', async (message, callback) => {
+    if (!connectedUser) {
+      return
+    }
+
     if (message.toLowerCase().includes(roomData.coords[roomData.round].city)) {
       io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city!` })
       Room.updateOne({ 'users.id': connectedUser.id }, { 
@@ -91,6 +101,10 @@ io.on('connect', (socket) => {
   })
 
   socket.on('disconnect', async () => {
+    if (!connectedUser) {
+      return
+    }
+    
     if (roomData) {
       await Room.updateOne({ _id: currentRoom }, {
         $pull: { users: { id: connectedUser.id } }

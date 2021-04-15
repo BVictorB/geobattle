@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { TokenContext } from '@contexts'
+import { logo } from '@assets'
 import './Navigation.scss'
 
 const Navigation: React.FC = () => {
@@ -13,6 +14,7 @@ const Navigation: React.FC = () => {
 
   return (
     <nav>
+      <img className='logo' src={logo} alt='GeoBattle logo' />
       {token ?
         <>
           <Link to='/'>Home</Link>

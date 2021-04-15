@@ -15,7 +15,10 @@ const getroom = async (req, res) => {
     return
   }
 
-  res.status(200).json(room)
+  res.status(200).json({
+    auth: true,
+    room
+  })
 }
 
 module.exports = getroom
