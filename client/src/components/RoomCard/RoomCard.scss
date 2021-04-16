@@ -1,0 +1,21 @@
+.room-card {
+  color: #1A1A1D;
+  text-decoration: none;
+  background: #7cda3d;
+  display: block;
+  width: 16em;
+  height: 8em;
+  margin: 1em;
+  padding: .5em 1em;
+  border-radius: 1em;
+  transition: all 150ms ease-in-out;
+
+  &__title {
+    text-decoration: none;
+    font-size: 1.25em;
+  }
+
+  &:hover {
+    transform: translateY(-.25em) scale(1.01);
+  }
+}

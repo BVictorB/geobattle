@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
 import { TokenContext } from '@contexts'
 import { RoomInterface } from '@interfaces'
 import { fetchWithToken } from '@utils'
+import { RoomCard } from '@components'
+import './Rooms.scss'
 
 const Rooms: React.FC = () => {
   const [rooms, setRooms] = useState<RoomInterface[]>()
@@ -23,13 +24,11 @@ const Rooms: React.FC = () => {
   }, [token, setToken])
 
   return (
-    <div style={{ color: 'white', paddingTop: '4em' }}>
-      {rooms && rooms.map((room, index) => (
-        <Link key={index} to={`/room/${room._id}`}>
-          {room.name}
-        </Link>
-      ))}
-    </div>
+    <main>
+      <div className='rooms-container'>
+        {rooms && rooms.map((room, index) => <RoomCard key={index} room={room} />)}
+      </div>
+    </main>
   )
 }
 

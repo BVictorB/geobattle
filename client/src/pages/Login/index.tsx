@@ -48,7 +48,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className='home-container'>
+    <main>
       <form onSubmit={login}>
         <Input 
           label={'Email adress'}
@@ -60,13 +60,13 @@ const Login: React.FC = () => {
           type={'password'}
           onChange={setPassword}
         />
-        <button type='submit'>Login</button>
+        <button className='wide-button' type='submit'>Login</button>
         <Link to='/register'>
-          <button>Register</button>
+          <button className='wide-button'>Register</button>
         </Link>
       </form>
       {token && <Redirect to='/' />}
-    </div>
+    </main>
   )
 }
 

@@ -19,3 +19,29 @@ body {
   background-color: #1A1A1D;
   color: #1A1A1D;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 8em);
+  align-items: center;
+}
+
+.wide-button {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 1em 0;
+  background: #7cda3d;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid #7cda3d;
+  width: 100%;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+
+  &:hover, &:focus {
+    color: white;
+    background: #1A1A1D;
+    outline: none;
+  }
+}

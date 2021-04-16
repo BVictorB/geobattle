@@ -5,7 +5,7 @@ import { Chat, Map, RoomInfo } from '@components'
 import { RoomInterface } from '@interfaces'
 import { TokenContext } from '@contexts'
 import { fetchWithToken } from '@utils'
-import './RoomScreen.scss'
+import './Room.scss'
 
 let socket: Socket
 
@@ -54,7 +54,7 @@ const Room: React.FC = () => {
   }, [token, room])
 
   return (
-    <div className='room-container'>
+    <main>
       {socket && playing && <Map socket={socket}/>}
       {<div className='outerContainer'>
         <div className='container'>
@@ -63,7 +63,7 @@ const Room: React.FC = () => {
           {!token && <Redirect to='/login' />}
         </div>
       </div>}
-    </div>
+    </main>
   )
 
 }

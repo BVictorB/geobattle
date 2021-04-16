@@ -38,7 +38,7 @@ const Create: React.FC = () => {
   }
 
   return (
-    <div className='create-container'>
+    <main className='create'>
       <form onSubmit={createRoom}>
         <Input 
           label={'Room name'}
@@ -55,11 +55,11 @@ const Create: React.FC = () => {
           type={'number'} 
           onChange={(e) => setTime(Number(e))} 
         />
-        <button type='submit'>Create room</button>
+        <button className='wide-button' type='submit'>Create room</button>
       </form>
       {room && <Redirect to={`/room/${room}`}/> }
       {!token && <Redirect to='/login' />}
-    </div>
+    </main>
   )
 }
 

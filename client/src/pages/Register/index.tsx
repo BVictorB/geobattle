@@ -50,7 +50,7 @@ const Register: React.FC = () => {
   }
 
   return (
-    <div className='home-container'>
+    <main>
       <form onSubmit={register}>
         <Input 
           label={'Email adress'}
@@ -71,10 +71,10 @@ const Register: React.FC = () => {
           type={'password'}
           onChange={setRepeatedPassword}
         />
-        <button type='submit'>Register</button>
+        <button className='wide-button' type='submit'>Register</button>
       </form>
       {token && <Redirect to='/' />}
-    </div>
+    </main>
   )
 }
 

@@ -14,12 +14,10 @@ const Navigation: React.FC = () => {
 
   return (
     <nav>
-      <img className='logo' src={logo} alt='GeoBattle logo' />
+      <Link to='/'><img className='logo' src={logo} alt='GeoBattle logo' /></Link>
       {token ?
         <>
-          <Link to='/'>Home</Link>
           <Link to='/rooms'>Rooms</Link>
-          <Link to='/join'>Join Room</Link>
           <Link to='/create'>Create Room</Link>
           <button onClick={() => logout()}>Log out</button>
         </> 
