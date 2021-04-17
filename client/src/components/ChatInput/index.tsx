@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ChatInput: React.FC<Props> = ({ message, setMessage, sendMessage }) => (
-  <form onSubmit={sendMessage} className='chat-input'>
+  <form onSubmit={sendMessage} className='m-chat-input'>
     <input 
       type="text" 
       placeholder="Type a message..." 

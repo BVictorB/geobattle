@@ -11,11 +11,12 @@ interface Props {
 }
 
 const Input: React.FC<Props> = ({ type, label, value, onChange, autoFocus, placeholder }) => (
-  <div className='input'>
+  <div className='m-input'>
     {label ? 
-      <label>
+      <label className='m-input__label'>
         {label}
         <input
+          className='m-input__input'
           type={type ? type : 'text'}
           placeholder={placeholder}
           value={value && value}
@@ -25,6 +26,7 @@ const Input: React.FC<Props> = ({ type, label, value, onChange, autoFocus, place
       </label> 
     :
       <input
+        className='m-input__input'
         type={type ? type : 'text'}
         placeholder={placeholder}
         value={value && value}

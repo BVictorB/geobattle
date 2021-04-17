@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
   }
 
   return (
-    <nav>
+    <nav className='m-navigation'>
       <Link to='/'><img className='logo' src={logo} alt='GeoBattle logo' /></Link>
       {token ?
         <>

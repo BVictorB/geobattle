@@ -30,13 +30,14 @@ const Map: React.FC<Props> = ({ socket }) => {
   const displayMap = useMemo(
     () => (
       <MapContainer 
-        className='map'
+        className='m-map'
         whenCreated={(map: Leaflet.Map) => setMap(map)}
         zoom={30}
         doubleClickZoom={false}
         dragging={false}
         zoomControl={false}
         scrollWheelZoom={false}
+        attributionControl={false}
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -1,20 +1,5 @@
-.outerContainer {
-  position: absolute;
-  z-index: 2;
-  top: 8em;
-  right: 0;
-  width: 400px;
-  height: calc(100vh - 8em);
-  background-color: #1A1A1D;
-}
-
-.container {
+.m-chat {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background: #1A1A1D;
-  border-radius: 8px;
   height: 100%;
-  width: 100%;
-  padding: 1em 0 2em;
 }

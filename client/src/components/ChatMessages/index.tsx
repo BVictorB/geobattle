@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { ChatMessage } from '@components'
 import { MessageInterface } from '@interfaces'
-import './Messages.scss'
+import './ChatMessages.scss'
 
 interface Props {
   messages: MessageInterface[],
@@ -14,13 +14,13 @@ const Messages: React.FC<Props> = ({ messages, name }) => {
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ 
-        behavior: "smooth" 
+        behavior: 'smooth' 
       })
     }
   }, [messages])
   
   return (
-    <div className="messages">
+    <div className='m-chat-messages'>
       {messages.map((message, i) => <ChatMessage key={i} message={message} name={name}/>)}
       <div ref={messagesEndRef} />
     </div>

@@ -1,0 +1,10 @@
+.container {
+  flex: 0 0 24em;
+  max-width: 24em;
+  display: flex;
+  flex-direction: column;
+  background: #28282c;
+  height: 100%;
+  padding: 1em 0 2em;
+  border-radius: 0 1em 1em 0;
+}

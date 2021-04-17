@@ -1,13 +1,14 @@
-.chat-input {
+.m-chat-input {
   padding: 0 2em;
+  display: flex;
 
   input {
     border: none;
     font-size: 1.2em;
-    border-radius: 1rem;
-    padding: 1rem 5.5rem 1rem 1.25rem;
-    width: 100%;
+    border-radius: 1rem 0 0 1rem;
+    padding: 1rem 1.25rem;
     height: 4rem;
+    width: 100%;
     caret-color: #7cda3d;
 
     &:focus {
@@ -17,14 +18,11 @@
   }
 
   button {
-    bottom: 2em;
-    right: 2rem;
-    position: absolute;
+    flex: 0 0 5em;
     background: #7cda3d;
     border: none;
-    width: 5em;
-    height: 4em;
-    border-radius: 1em;
+    height: 4rem;
+    border-radius: 0 1rem 1rem 0;
     cursor: pointer;
   }
 }

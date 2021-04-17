@@ -28,10 +28,10 @@ const Chat: React.FC<Props> = ({ socket, name }) => {
   }
 
   return (
-    <>
+    <div className='m-chat'>
       {messages && <ChatMessages messages={messages} name={name} />}
       <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
-    </>
+    </div>
   )
 }
 

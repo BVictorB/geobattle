@@ -1,5 +1,5 @@
-.input {
-  input {
+.m-input {
+  &__input {
     font-weight: 500;
     font-size: 1rem;
     display: block;
@@ -15,7 +15,7 @@
     }
   }
   
-  label {
+  &__label {
     font-weight: 500;
     font-size: 20px;
     display: block;

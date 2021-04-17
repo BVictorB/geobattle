@@ -17,7 +17,7 @@ const RoomInfo: React.FC<Props> = ({ socket }) => {
   }, [socket])
 
   return (
-    <div className='roominfo-container'>
+    <div className='m-room-info'>
       <h2>{roomData && roomData.name}</h2>
       {roomData && roomData.users.sort((a, b) => b.points - a.points).map((user, i) => <p className='scoreboard' key={user.id}>{i + 1}: {user.username}: {user.points}</p>)}    
     </div>

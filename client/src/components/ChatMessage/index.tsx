@@ -1,6 +1,6 @@
 import React from 'react'
 import { MessageInterface } from '@interfaces'
-import './Message.scss'
+import './ChatMessage.scss'
 
 interface Props {
   message: MessageInterface,
@@ -13,17 +13,17 @@ const Message: React.FC<Props> = ({message: { user, text }, name}) => {
 
     if (admin) {
       return (
-        <div className='message message__admin'>
-          <div className='message__container'>
+        <div className='m-chat-message m-chat-message__admin'>
+          <div className='m-chat-message__container'>
             <p>{text}</p>
           </div>
         </div>
       )
     } else {
       return (
-        <div className={ownMessage ? 'message message__own' : 'message message__other'}>
-          <div className='message__container'>
-            {!ownMessage && <p className='message__user'>{user}</p>}
+        <div className={ownMessage ? 'm-chat-message m-chat-message__own' : 'm-chat-message m-chat-message__other'}>
+          <div className='m-chat-message__container'>
+            {!ownMessage && <p className='m-chat-message__user'>{user}</p>}
             <p>{text}</p>
           </div>
         </div>

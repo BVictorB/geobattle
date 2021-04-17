@@ -16,7 +16,7 @@
 }
 
 body {
-  background-color: #1A1A1D;
+  background: #1A1A1D;
   color: #1A1A1D;
 }
 
@@ -25,6 +25,8 @@ main {
   justify-content: center;
   height: calc(100vh - 8em);
   align-items: center;
+  padding: 6em;
+  position: relative;
 }
 
 .wide-button {

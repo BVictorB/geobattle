@@ -1,4 +1,4 @@
-.message {
+.m-chat-message {
   display: flex;
   padding: 0 1em;
   justify-content: flex-end;
@@ -25,7 +25,7 @@
   &__admin {
     width: 100%;
 
-    .message__container {
+    .m-chat-message__container {
       background: #7cda3d;
       width: 100%;
       max-width: 100%;
