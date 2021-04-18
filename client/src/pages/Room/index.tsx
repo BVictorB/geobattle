@@ -56,7 +56,7 @@ const Room: React.FC = () => {
   return (
     <main>
       {socket && playing && <Map socket={socket}/>}
-      {<div className='container'>
+      {<div className='p-room'>
         {socket && <RoomInfo socket={socket} />}
         {socket && <Chat socket={socket} name={name} />}
         {!token && <Redirect to='/login' />}

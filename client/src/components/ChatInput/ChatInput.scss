@@ -18,11 +18,16 @@
   }
 
   button {
-    flex: 0 0 5em;
+    flex: 0 0 4em;
     background: #7cda3d;
     border: none;
     height: 4rem;
     border-radius: 0 1rem 1rem 0;
     cursor: pointer;
+  }
+
+  svg {
+    margin: .5em auto 0;
+    width: 1.5em;
   }
 }

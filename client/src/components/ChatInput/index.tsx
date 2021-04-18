@@ -1,4 +1,5 @@
 import React, { Dispatch, FormEvent } from 'react'
+import { Send } from '@icons'
 import './ChatInput.scss'
 
 interface Props {
@@ -16,7 +17,9 @@ const ChatInput: React.FC<Props> = ({ message, setMessage, sendMessage }) => (
       onChange={(e) => setMessage(e.target.value)} 
       autoFocus
     />
-    <button type="submit">Send</button>
+    <button type="submit">
+      <Send color={'#1A1A1D'} />
+    </button>
   </form>
 )
 

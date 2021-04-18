@@ -25,12 +25,11 @@ main {
   justify-content: center;
   height: calc(100vh - 8em);
   align-items: center;
-  padding: 6em;
-  position: relative;
+  padding: 2em;
 }
 
 .wide-button {
-  font-size: 20px;
+  font-size: 1.25em;
   font-weight: 600;
   margin: 1em 0;
   background: #7cda3d;
@@ -42,7 +41,7 @@ main {
   transition: all 150ms ease-in-out;
 
   &:hover, &:focus {
-    color: white;
+    color: #FAFAFA;
     background: #1A1A1D;
     outline: none;
   }

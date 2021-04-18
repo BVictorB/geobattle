@@ -2,7 +2,6 @@ import React, { FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router'
 import { Input } from '@components'
 import { TokenContext } from '@contexts'
-import './Create.scss'
 
 const Create: React.FC = () => {
   const [name, setName] = useState<string>()
@@ -38,7 +37,7 @@ const Create: React.FC = () => {
   }
 
   return (
-    <main className='create'>
+    <main>
       <form onSubmit={createRoom}>
         <Input 
           label={'Room name'}

@@ -14,12 +14,12 @@ const Navigation: React.FC = () => {
 
   return (
     <nav className='m-navigation'>
-      <Link to='/'><img className='logo' src={logo} alt='GeoBattle logo' /></Link>
+      <Link to='/'><img className='m-navigation__logo' src={logo} alt='GeoBattle logo' /></Link>
       {token ?
         <>
           <Link to='/rooms'>Rooms</Link>
           <Link to='/create'>Create Room</Link>
-          <button onClick={() => logout()}>Log out</button>
+          <button className='m-navigation__logout' onClick={() => logout()}>Log out</button>
         </> 
       :
         <>

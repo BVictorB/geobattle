@@ -25,9 +25,7 @@ const Rooms: React.FC = () => {
 
   return (
     <main>
-      <div className='rooms-container'>
-        {rooms && rooms.map((room, index) => <RoomCard key={index} room={room} />)}
-      </div>
+      {rooms && rooms.map((room, index) => <RoomCard key={index} room={room} />)}
     </main>
   )
 }

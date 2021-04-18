@@ -1,16 +1,27 @@
 .m-navigation {
   width: 100%;
   height: 8em;
-  padding: 2em;
+  text-align: center;
 
   a {
     text-decoration: none;
     font-size: 1.25em;
     margin: 0 1rem;
-    color: #fafafa;
+    color: #FAFAFA;
   }
 
-  .logo {
+  &__logout {
+    color: #FAFAFA;
+    font-size: 1.25em;
+    margin: 0 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__logo {
+    display: block;
+    margin: 0 auto 1em;
     height: 4em;
   }
 }
