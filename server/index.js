@@ -29,6 +29,9 @@ app
 
 const Room = require('./src/models/room')
 const User = require('./src/models/user')
+const getData = require('./src/utils/getData')
+const calcDist = require('./src/utils/calcDist')
+const roundNum = require('./src/utils/roundNum')
 
 io.on('connect', (socket) => {  
   let currentRoom
@@ -80,19 +83,28 @@ io.on('connect', (socket) => {
   })
 
   socket.on('sendMessage', async (message, callback) => {
-    if (!connectedUser) {
-      return
-    }
+    if (!connectedUser) return
 
-    if (message.toLowerCase().includes(roomData.coords[roomData.round].city.toLowerCase())) {
-      io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city!` })
-      Room.updateOne({ 'users.id': connectedUser.id }, { 
-        $inc: { 'users.$.points': 10 }
-      }, err => err && console.log(err))
+    const location = await getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.API_KEY}&query=${message}`)
+    
+    if (location.data[0]) {
+      const coords = location.data[0]
+      const dist = roundNum(calcDist([coords.latitude, coords.longitude], roomData.coords[roomData.round].coords), 0)
+      if (dist < 10) {
+        io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city, it was ${roomData.coords[roomData.round].city}!` })
+        Room.updateOne({ 'users.id': connectedUser.id }, { 
+          $inc: { 'users.$.points': 10 }
+        }, err => err && console.log(err))
 
-      Room.updateOne({ _id: currentRoom }, { 
-        $inc: { round: 1 }
-      }, err => err && console.log(err))
+        Room.updateOne({ _id: currentRoom }, { 
+          $inc: { round: 1 }
+        }, err => err && console.log(err))
+      } else if (!isNaN(dist)) {
+        io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
+        socket.emit('message', { user: 'admin', text: `You are off by ${dist} km`})
+      } else {
+        io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
+      }
     } else {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
     }
