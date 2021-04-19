@@ -1,15 +1,10 @@
-import React, { FormEvent, useContext, useState } from 'react'
+import { FC, FormEvent, useContext, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Input } from '@components'
 import { TokenContext } from '@contexts'
+import { AuthInterface } from '@interfaces'
 
-interface Auth {
-  auth: boolean,
-  token?: string,
-  message?: string
-}
-
-const Login: React.FC = () => {
+const Login:FC = () => {
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
   const { token, setToken } = useContext(TokenContext)
@@ -38,7 +33,7 @@ const Login: React.FC = () => {
     }
   }
 
-  const handleLogin = (data: Auth) => {
+  const handleLogin = (data: AuthInterface) => {
     if (data.auth && data.token) {
       setToken(data.token)
       window.localStorage.setItem('token', data.token)

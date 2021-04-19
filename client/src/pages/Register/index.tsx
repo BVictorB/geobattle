@@ -1,15 +1,10 @@
-import React, { FormEvent, useState, useContext } from 'react'
+import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Input } from '@components'
 import { TokenContext } from '@contexts'
+import { AuthInterface } from '@interfaces'
 
-interface Auth {
-  auth: boolean,
-  token?: string,
-  message?: string
-}
-
-const Register: React.FC = () => {
+const Register:FC = () => {
   const [email, setEmail] = useState<string>()
   const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
@@ -41,7 +36,7 @@ const Register: React.FC = () => {
     }
   }
 
-  const handleLogin = (data: Auth) => {
+  const handleLogin = (data: AuthInterface) => {
     if (data.auth) {
       setToken(data.token)
     } else {

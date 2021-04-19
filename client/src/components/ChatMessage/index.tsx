@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { MessageInterface } from '@interfaces'
 import './ChatMessage.scss'
 
@@ -7,7 +7,7 @@ interface Props {
   name: string
 }
 
-const Message: React.FC<Props> = ({message: { user, text }, name}) => {
+const Message:FC<Props> = ({message: { user, text }, name}) => {
     const ownMessage = user === name
     const admin = user === 'admin'
 

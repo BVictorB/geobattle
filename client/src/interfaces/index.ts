@@ -21,3 +21,9 @@ export interface MessageInterface {
   user: string,
   text: string
 }
+
+export interface AuthInterface {
+  auth: boolean,
+  token?: string,
+  message?: string
+}

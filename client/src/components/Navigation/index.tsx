@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import { FC, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { TokenContext } from '@contexts'
 import { logo } from '@assets'
 import './Navigation.scss'
 
-const Navigation: React.FC = () => {
+const Navigation:FC = () => {
   const { token, setToken } = useContext(TokenContext)
 
   const logout = () => {

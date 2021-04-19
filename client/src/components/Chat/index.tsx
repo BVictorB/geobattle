@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent } from 'react'
+import { FC, useState, useEffect, FormEvent } from 'react'
 import { Socket } from 'socket.io-client'
 import { ChatInput, ChatMessages } from '@components'
 import { MessageInterface } from '@interfaces'
@@ -9,7 +9,7 @@ interface Props {
   name: string
 }
 
-const Chat: React.FC<Props> = ({ socket, name }) => {
+const Chat:FC<Props> = ({ socket, name }) => {
   const [message, setMessage] = useState<string>('')
   const [messages, setMessages] = useState<MessageInterface[]>([])
 

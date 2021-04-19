@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { FC, useState, useEffect, useContext } from 'react'
 import { TokenContext } from '@contexts'
 import { RoomInterface } from '@interfaces'
 import { fetchWithToken } from '@utils'
 import { RoomCard } from '@components'
 import './Rooms.scss'
 
-const Rooms: React.FC = () => {
+const Rooms:FC = () => {
   const [rooms, setRooms] = useState<RoomInterface[]>()
   const { token, setToken } = useContext(TokenContext)
 

@@ -1,0 +1,32 @@
+.m-select {
+  font-weight: 500;
+  font-size: 20px;
+  display: block;
+  color: #FAFAFA;
+  width: 20rem;
+  margin: 1rem 0;
+
+  &:focus-within {
+    color: #71aa4a;
+  }
+
+  &__select {
+    font-weight: 500;
+    font-size: 1rem;
+    display: block;
+    border-radius: 1em;
+    padding: 1em 1.25em;
+    width: 100%;
+    margin-top: .5em;
+    caret-color: #7cda3d;
+    border: 2px solid #1A1A1D;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:focus {
+      border: 2px solid #7cda3d;
+      outline: none;
+    }
+  }
+}

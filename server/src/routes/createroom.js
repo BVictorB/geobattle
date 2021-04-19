@@ -3,13 +3,14 @@ const
   Location = require('../models/location')
 
 const createroom = async (req, res) => {
-  const locations = await Location.find({})
-  const pickedLocations = locations.sort(() => .5 - Math.random()).slice(0, req.body.rounds)
+  const { name, rounds, time, continent } = req.body
+  const locations = await Location.find({ continent: continent === 'all' ? { $exists: true } : continent })
+  const pickedLocations = locations.sort(() => .5 - Math.random()).slice(0, rounds)
 
   const room = new Room()
-  room.name = req.body.name
-  room.rounds = req.body.rounds
-  room.time = req.body.time
+  room.name = name
+  room.rounds = rounds
+  room.time = time
   room.coords = pickedLocations
 
   room.save((err, room) => {

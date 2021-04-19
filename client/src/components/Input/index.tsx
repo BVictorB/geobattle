@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react'
+import { FC, Dispatch } from 'react'
 import './Input.scss'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   placeholder?: string
 }
 
-const Input: React.FC<Props> = ({ type, label, value, onChange, autoFocus, placeholder }) => (
+const Input:FC<Props> = ({ type, label, value, onChange, autoFocus, placeholder }) => (
   <div className='m-input'>
     {label ? 
       <label className='m-input__label'>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import { FC, useEffect, useState, useContext } from 'react'
 import { useParams, Redirect } from 'react-router'
 import { io, Socket } from 'socket.io-client'
 import { Chat, Map, RoomInfo } from '@components'
@@ -9,7 +9,7 @@ import './Room.scss'
 
 let socket: Socket
 
-const Room: React.FC = () => {
+const Room:FC = () => {
   const [name, setName] = useState<string>('temp')
   const [room, setRoom] = useState<string>()
   const [playing, setPlaying] = useState<boolean>(true)

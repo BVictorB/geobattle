@@ -1,12 +1,13 @@
-import React, { FormEvent, useState, useContext } from 'react'
+import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router'
-import { Input } from '@components'
+import { Input, Select } from '@components'
 import { TokenContext } from '@contexts'
 
-const Create: React.FC = () => {
+const Create:FC = () => {
   const [name, setName] = useState<string>()
   const [rounds, setRounds] = useState<number>()
   const [time, setTime] = useState<number>()
+  const [continent, setContinent] = useState<string>('all')
   const [room, setRoom] = useState<string>()
   const { token } = useContext(TokenContext)
 
@@ -21,9 +22,10 @@ const Create: React.FC = () => {
           'x-access-token': token
         },
         body: JSON.stringify({
-          name: name,
-          rounds: rounds,
-          time: time
+          name,
+          rounds,
+          time,
+          continent
         })
       }
     
@@ -53,6 +55,21 @@ const Create: React.FC = () => {
           label={'Time per round'} 
           type={'number'} 
           onChange={(e) => setTime(Number(e))} 
+        />
+        <Select 
+          label={'Continent'}
+          onChange={(e) => setContinent(e)}
+          options={
+            [
+              'All', 
+              'Africa', 
+              'Asia', 
+              'Australia', 
+              'Europe', 
+              'North America', 
+              'South America'
+            ]
+          }
         />
         <button className='wide-button' type='submit'>Create room</button>
       </form>

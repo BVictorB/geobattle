@@ -1,4 +1,4 @@
-import React, { Dispatch, FormEvent } from 'react'
+import { FC, Dispatch, FormEvent } from 'react'
 import { Send } from '@icons'
 import './ChatInput.scss'
 
@@ -8,7 +8,7 @@ interface Props {
   sendMessage: (e: FormEvent) => void
 }
 
-const ChatInput: React.FC<Props> = ({ message, setMessage, sendMessage }) => (
+const ChatInput:FC<Props> = ({ message, setMessage, sendMessage }) => (
   <form onSubmit={sendMessage} className='m-chat-input'>
     <input 
       type="text" 
