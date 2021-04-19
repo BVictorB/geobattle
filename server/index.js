@@ -84,7 +84,7 @@ io.on('connect', (socket) => {
       return
     }
 
-    if (message.toLowerCase().includes(roomData.coords[roomData.round].city)) {
+    if (message.toLowerCase().includes(roomData.coords[roomData.round].city.toLowerCase())) {
       io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city!` })
       Room.updateOne({ 'users.id': connectedUser.id }, { 
         $inc: { 'users.$.points': 10 }
