@@ -87,7 +87,7 @@ io.on('connect', (socket) => {
 
     const location = await getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.API_KEY}&query=${message}`)
 
-    if (!location.data[0] || location.data[0].type !== 'locality') {
+    if (!location.data?.[0] || location.data?.[0].type !== 'locality') {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
       callback()
       return

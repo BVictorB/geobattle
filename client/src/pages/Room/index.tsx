@@ -1,7 +1,7 @@
 import { FC, useEffect, useState, useContext } from 'react'
 import { useParams, Redirect } from 'react-router'
 import { io, Socket } from 'socket.io-client'
-import { Chat, Map, RoomInfo } from '@components'
+import { Chat, Map } from '@components'
 import { RoomInterface } from '@interfaces'
 import { TokenContext } from '@contexts'
 import { fetchWithToken } from '@utils'
@@ -57,7 +57,6 @@ const Room:FC = () => {
     <main>
       {socket && playing && <Map socket={socket}/>}
       {<div className='p-room'>
-        {socket && <RoomInfo socket={socket} />}
         {socket && <Chat socket={socket} name={name} />}
         {!token && <Redirect to='/login' />}
       </div>}
