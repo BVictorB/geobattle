@@ -27,16 +27,18 @@ app
   .use(cors())
   .use(router)
 
-const Room = require('./src/models/room')
-const User = require('./src/models/user')
-const getData = require('./src/utils/getData')
-const calcDist = require('./src/utils/calcDist')
-const roundNum = require('./src/utils/roundNum')
+const 
+  Room = require('./src/models/room'),
+  User = require('./src/models/user'),
+  getData = require('./src/utils/getData'),
+  calcDist = require('./src/utils/calcDist'),
+  roundNum = require('./src/utils/roundNum')
 
 io.on('connect', (socket) => {  
-  let currentRoom
-  let roomData
-  let connectedUser
+  let 
+    currentRoom,
+    roomData,
+    connectedUser
 
   const watchRoom = async (room) => {
     const roomDB = await Room.watch({ _id: room })
@@ -59,9 +61,7 @@ io.on('connect', (socket) => {
       }
     })
 
-    if (!connectedUser) {
-      return
-    }
+    if (!connectedUser) return
     
     const userData = {
       id: connectedUser.id,
@@ -86,44 +86,47 @@ io.on('connect', (socket) => {
     if (!connectedUser) return
 
     const location = await getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.API_KEY}&query=${message}`)
-    
-    if (location.data[0]) {
-      const coords = location.data[0]
-      const dist = roundNum(calcDist([coords.latitude, coords.longitude], roomData.coords[roomData.round].coords), 0)
-      if (dist < 10) {
-        io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city, it was ${roomData.coords[roomData.round].city}!` })
-        Room.updateOne({ 'users.id': connectedUser.id }, { 
-          $inc: { 'users.$.points': 10 }
-        }, err => err && console.log(err))
 
-        Room.updateOne({ _id: currentRoom }, { 
-          $inc: { round: 1 }
-        }, err => err && console.log(err))
-      } else if (!isNaN(dist)) {
-        io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
-        socket.emit('message', { user: 'admin', text: `You are off by ${dist} km`})
-      } else {
-        io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
-      }
+    if (!location.data[0] || location.data[0].type !== 'locality') {
+      io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
+      callback()
+      return
+    }
+
+    const { latitude, longitude } = location.data[0]
+    const dist = roundNum(calcDist([latitude, longitude], roomData.coords[roomData.round].coords), 0)
+    
+    if (isNaN(dist)) {
+      io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
+      callback()
+      return
+    }
+
+    if (dist < 10) {
+      io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city, it was ${roomData.coords[roomData.round].city}!` })
+      Room.updateOne({ 'users.id': connectedUser.id }, { 
+        $inc: { 'users.$.points': 10 }
+      }, err => err && console.log(err))
+
+      Room.updateOne({ _id: currentRoom }, { 
+        $inc: { round: 1 }
+      }, err => err && console.log(err))
     } else {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
+      socket.emit('message', { user: 'admin', text: `You are off by ${dist} km`})
     }
     
     callback()
   })
 
   socket.on('disconnect', async () => {
-    if (!connectedUser) {
-      return
-    }
+    if (!connectedUser || !roomData) return
     
-    if (roomData) {
-      await Room.updateOne({ _id: currentRoom }, {
-        $pull: { users: { id: connectedUser.id } }
-      }, err => err && console.log(err))
-  
-      io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} has left.` })
-    }
+    await Room.updateOne({ _id: currentRoom }, {
+      $pull: { users: { id: connectedUser.id } }
+    }, err => err && console.log(err))
+
+    io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} has left.` })
   })
 })
 

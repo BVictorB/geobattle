@@ -11,18 +11,15 @@
   }
 
   &__select {
-    font-weight: 500;
-    font-size: 1rem;
+    width: 100%;
     display: block;
     border-radius: 1em;
     padding: 1em 1.25em;
-    width: 100%;
     margin-top: .5em;
-    caret-color: #7cda3d;
-    border: 2px solid #1A1A1D;
     -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right white;
+    background-position-x: calc(100% - 1em);
+    border: 2px solid #1A1A1D;
 
     &:focus {
       border: 2px solid #7cda3d;
