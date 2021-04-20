@@ -58,8 +58,8 @@ const Room:FC = () => {
       {socket && playing && <Map socket={socket}/>}
       {<div className='p-room'>
         {socket && <Chat socket={socket} name={name} />}
-        {!token && <Redirect to='/login' />}
       </div>}
+      {!token && <Redirect to='/login' />}
     </main>
   )
 

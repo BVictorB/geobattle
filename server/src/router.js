@@ -6,7 +6,9 @@ const
   login = require('./routes/login'),
   register = require('./routes/register'),
   auth = require('./routes/auth'),
-  rooms = require('./routes/rooms')
+  rooms = require('./routes/rooms'),
+  getlocation = require('./routes/getlocation'),
+  getlocations = require('./routes/getlocations')
 
 const
   authenticate = require('./middleware/authenticate')
@@ -18,5 +20,7 @@ router
   .post('/register', register)
   .post('/login', login)
   .get('/rooms', authenticate, rooms)
+  .post('/getlocation', getlocation)
+  .get('/getlocations', getlocations)
 
 module.exports = router
