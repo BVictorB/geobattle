@@ -24,7 +24,7 @@ const Rooms:FC = () => {
   }, [token, setToken])
 
   return (
-    <main>
+    <main className='p-rooms'>
       {rooms && rooms.map((room, index) => <RoomCard key={index} room={room} />)}
     </main>
   )

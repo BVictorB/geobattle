@@ -23,8 +23,8 @@ body {
 main {
   display: flex;
   justify-content: center;
+  align-content: flex-start;
   height: calc(100vh - 8em);
-  align-items: center;
   padding: 2em;
 }
 

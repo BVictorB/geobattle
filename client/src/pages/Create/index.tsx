@@ -1,12 +1,12 @@
 import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router'
-import { Input, Select } from '@components'
+import { Input, Select, Radio } from '@components'
 import { TokenContext } from '@contexts'
 
 const Create:FC = () => {
   const [name, setName] = useState<string>()
-  const [rounds, setRounds] = useState<number>()
-  const [time, setTime] = useState<number>()
+  const [rounds, setRounds] = useState<string>('regular')
+  const [time, setTime] = useState<string>('regular')
   const [continent, setContinent] = useState<string>('all')
   const [room, setRoom] = useState<string>()
   const { token } = useContext(TokenContext)
@@ -46,15 +46,17 @@ const Create:FC = () => {
           onChange={setName}
           autoFocus={true}
         />
-        <Input 
-          label={'Rounds'}
-          type={'number'} 
-          onChange={(e) => setRounds(Number(e))} 
+        <Radio 
+          label={'Length of game'}
+          options={['short', 'regular', 'long']}
+          state={rounds}
+          onChange={(e) => setRounds(e)}
         />
-        <Input 
-          label={'Time per round'} 
-          type={'number'} 
-          onChange={(e) => setTime(Number(e))} 
+        <Radio 
+          label={'Length of rounds'}
+          options={['short', 'regular', 'long']}
+          state={time}
+          onChange={(e) => setTime(e)}
         />
         <Select 
           label={'Continent'}

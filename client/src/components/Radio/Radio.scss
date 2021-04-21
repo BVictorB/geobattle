@@ -1,0 +1,31 @@
+.m-radio {
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: #FAFAFA;
+  margin-top: 1em;
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    display: block;
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-top: .25em;
+    background: #7cda3d;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    border: 2px solid #7cda3d;
+    width: 100px;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+
+    &--active {
+      color: #FAFAFA;
+      background: #1A1A1D;
+      outline: none;
+    }
+  }
+}

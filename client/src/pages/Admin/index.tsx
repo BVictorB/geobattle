@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
+import Leaflet from 'leaflet'
 import { LocationMarker } from '@components'
 import { deCamelize, camelize } from '@utils'
 import './Admin.scss'
@@ -12,9 +13,13 @@ interface Location {
 }
 
 const Admin:FC = () => {
-  const [location, setLocation] = useState<[number, number] | null>(null)
-  const [locationData, setLocationData] = useState<{ city: string, continent: string } | null>(null)
-  const [locations, setLocations] = useState<Location[] | null>(null)
+  const 
+    [location, setLocation] = useState<[number, number] | null>(null),
+    [locationData, setLocationData] = useState<{ city: string, continent: string } | null>(null),
+    [locations, setLocations] = useState<Location[] | null>(null),
+    southWest = Leaflet.latLng(-90, -180),
+    northEast = Leaflet.latLng(90, 180),
+    bounds = Leaflet.latLngBounds(southWest, northEast)
 
   useEffect(() => {
     if (location) {
@@ -88,11 +93,15 @@ const Admin:FC = () => {
       <MapContainer
         className='p-admin__map'
         center={{ lat: 45.6, lng: -11.4 }}
-        zoom={3}
+        zoom={4}
+        minZoom={4}
         attributionControl={false}
+        maxBoundsViscosity={1.0}
+        maxBounds={bounds}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          noWrap={true}
         />
         <LocationMarker location={location} setLocation={setLocation} />
       </MapContainer>

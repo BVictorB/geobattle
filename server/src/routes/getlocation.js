@@ -9,6 +9,7 @@ const getlocation = async (req, res) => {
   }
 
   const location = await getData(`http://api.positionstack.com/v1/reverse?access_key=${process.env.API_KEY}&query=${lat},${lon}`)
+  if (location.error) return
   const { locality, continent } = location.data?.[0]
   
   if (locality && continent) {
