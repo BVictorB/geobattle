@@ -45,7 +45,7 @@ Coming soon...
 
 - Clone this repo
 ```
-git clone https://github.com/BVictorB/real-time-web-2021 .
+git clone https://github.com/BVictorB/geobattle .
 ```
 - Install all server dependencies and run the server (create a .env file with a database link if you actually want it to work locally)
 ```
