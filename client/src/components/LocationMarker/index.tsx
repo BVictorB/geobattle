@@ -24,7 +24,7 @@ const LocationMarker:FC<Props> = ({ location, setLocation }) => {
 
   useEffect(() => {
     location && map.flyTo({ lat: location[0], lng: location[1] }, 13)
-  }, [location])
+  }, [location, map])
 
   return location && <Marker icon={markerIcon} position={location}/>
 }

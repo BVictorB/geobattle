@@ -1,4 +1,18 @@
 .p-admin {
+  h2 {
+    font-size: 2em;
+    margin-bottom: .25rem;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    margin: .3rem 0;
+  }
+
+  p {
+    font-size: 1.1em;
+  }
+
   &__map {
     width: 100%;
     height: 100%;
@@ -12,21 +26,29 @@
     border-radius: 0 1em 1em 0;
     background: #28282c;
     color: white;
-    padding: 1em;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
   }
 
   &__locations {
-    display: flex;
-    flex-wrap: wrap;
+    overflow-y: scroll;
+    padding-right: 1em;
+    border-radius: 1em;
+    height: 100%;
 
     &__location {
-      flex: 0 0 6em;
       background: #7cda3d;
       color: #1A1A1D;
       border-radius: .5em;
       text-align: center;
-      margin: 1em auto;
-      padding: 1em;
+      margin: 1em 0;
+      padding: .5em;
+      cursor: pointer;
+
+      &__city {
+        font-weight: 800;
+      }
 
       button {
         cursor: pointer;
@@ -39,6 +61,7 @@
         width: 100%;
         cursor: pointer;
         transition: all 150ms ease-in-out;
+        margin-top: .5em;
       
         &:hover, &:focus {
           color: #1A1A1D;
