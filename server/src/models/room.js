@@ -24,6 +24,10 @@ const roomSchema = new Schema({
   round: {
     type: Number,
     default: 0
+  },
+  timeleft: {
+    type: Number,
+    default: (new Date().getTime() / 1000) + 60
   }
 })
 

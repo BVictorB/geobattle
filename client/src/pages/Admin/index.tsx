@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import Leaflet from 'leaflet'
-import { LocationMarker } from '@components'
+import { LocationMarker, Loader } from '@components'
 import { deCamelize, camelize } from '@utils'
 import './Admin.scss'
 
@@ -108,6 +108,7 @@ const Admin:FC = () => {
       <div className='p-admin__sidebar'>
         <h2>Add new location</h2>
         <p>To add a new location, just place a marker on the map and click on the button below.</p>
+        {location && !locationData && <Loader />}
         {locationData && <div>
           <h3>Selected location:</h3>
           <p>City: {locationData.city}</p>
@@ -121,6 +122,7 @@ const Admin:FC = () => {
         </div>}
         <h2>Existing locations</h2>
         <div className='p-admin__locations'>
+          {!locations && <Loader />}
           {locations && locations.map((location, index) => (
             <div
               className='p-admin__locations__location'

@@ -14,7 +14,8 @@ export interface RoomInterface {
     coords: [number, number],
     city: string
   }[],
-  round: number
+  round: number,
+  timeleft: number
 }
 
 export interface MessageInterface {

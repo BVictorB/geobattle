@@ -34,6 +34,29 @@ const
   calcDist = require('./src/utils/calcDist'),
   roundNum = require('./src/utils/roundNum')
 
+const watchRooms = () => {
+  setInterval(async () => {
+    const rooms = await Room.find({})
+    const currentTime = new Date().getTime() / 1000
+
+    rooms.forEach(async (room) => {
+      const difference = roundNum(room.timeleft - currentTime, 0)
+      if (difference > 0) return
+
+      Room.updateOne({ _id: room.id }, { 
+        $inc: { round: 1 }
+      }, err => err && console.log(err))
+
+      Room.updateOne({ _id: room.id }, { 
+        $set: { timeleft: (currentTime + room.time) }
+      }, err => err && console.log(err))
+
+    })
+  }, 1000)
+}
+
+watchRooms()
+
 io.on('connect', (socket) => {  
   let 
     currentRoom,
@@ -43,8 +66,14 @@ io.on('connect', (socket) => {
   const watchRoom = async (room) => {
     const roomDB = await Room.watch({ _id: room })
   
-    roomDB.on('change', async () => {
+    roomDB.on('change', async (e) => {
+      if (String(e.documentKey._id) !== String(room)) return
+
       const data = await Room.findOne({ _id: room })
+      if (e.updateDescription?.updatedFields?.round && data.coords[data.round - 1]) {
+        io.to(currentRoom).emit('message', { user: 'admin', text: `The correct city was ${data.coords[data.round - 1].city}!` })
+      }
+      
       roomData = data
       io.to(room).emit('roomData', { ...data._doc })
     })
@@ -103,13 +132,9 @@ io.on('connect', (socket) => {
     }
 
     if (dist < 10) {
-      io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city, it was ${roomData.coords[roomData.round].city}!` })
+      io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city!` })
       Room.updateOne({ 'users.id': connectedUser.id }, { 
         $inc: { 'users.$.points': 10 }
-      }, err => err && console.log(err))
-
-      Room.updateOne({ _id: currentRoom }, { 
-        $inc: { round: 1 }
       }, err => err && console.log(err))
     } else {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })

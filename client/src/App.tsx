@@ -23,7 +23,8 @@ const App = () => {
       setAuthenticating(false)
     }
     fetchToken()
-  }, [token])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (authenticating) {
     return <Loader />

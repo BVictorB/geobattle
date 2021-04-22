@@ -76,7 +76,6 @@ const Create:FC = () => {
         <button className='wide-button' type='submit'>Create room</button>
       </form>
       {room && <Redirect to={`/room/${room}`}/> }
-      {!token && <Redirect to='/login' />}
     </main>
   )
 }
