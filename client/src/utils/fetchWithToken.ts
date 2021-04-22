@@ -11,9 +11,9 @@ const fetchWithToken = async ({ endpoint, token }: Props) => {
     }
   })
 
-  const test = await data.json()
+  const result = await data.json()
 
-  return test
+  return result
 }
 
 export default fetchWithToken
