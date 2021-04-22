@@ -1,0 +1,45 @@
+.m-alert {
+  top: 2rem;
+  position: absolute;
+  width: 20rem;
+  height: 4rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.15em;
+  padding-top: .8em;
+  color: white;
+  animation: 
+    slideIn 300ms ease forwards,
+    slideOut 300ms ease 4.7s forwards;
+
+  &--error {
+    background: #cc0000;
+  }
+
+  &--success {
+    background: green;
+  }
+
+  &--warning {
+    background: rgb(221, 107, 0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10em);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10em);
+  }
+}

@@ -5,6 +5,15 @@ const jwt = require('jsonwebtoken')
 const login = async (req, res) => {
   const { email, password } = req.body
 
+
+  if (!email || !password) {
+    res.json({
+      auth: false,
+      message: 'Please fill in all fields.'
+    })
+    return
+  }
+
   const checkPassword = (err, matches, id) => {
     if (err) {
       res.json({
@@ -18,8 +27,7 @@ const login = async (req, res) => {
 
       res.json({
         auth: true,
-        token,
-        message: 'User signed in.'
+        token
       })
     } else if (!matches) {
       res.json({

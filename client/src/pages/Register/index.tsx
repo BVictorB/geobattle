@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
-import { Input } from '@components'
+import { Alert, Input } from '@components'
 import { TokenContext } from '@contexts'
 import { AuthInterface } from '@interfaces'
 
@@ -10,42 +10,43 @@ const Register:FC = () => {
   const [password, setPassword] = useState<string>()
   const [repeatedPassword, setRepeatedPassword] = useState<string>()
   const { token, setToken } = useContext(TokenContext)
+  const [alert, setAlert] = useState<string | null>(null)
 
   const register = (e: FormEvent) => {
+    setAlert(null)
     e.preventDefault()
 
-    if (email && username && password === repeatedPassword) {
-      const registerDetails = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          username,
-          password
-        })
-      }
-    
-      fetch('/register', registerDetails)
-        .then(res => res.json())
-        .then(data => handleLogin(data))
-        .catch((err) => console.log(err))
-    } else {
-      console.log('Please fill in all the fields')
+    const registerDetails = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        username,
+        password,
+        repeatedPassword
+      })
     }
+  
+    fetch('/register', registerDetails)
+      .then(res => res.json())
+      .then(data => handleLogin(data))
+      .catch((err) => console.log(err))
   }
 
   const handleLogin = (data: AuthInterface) => {
     if (data.auth) {
       setToken(data.token)
-    } else {
-      setToken(null)
+      return
     }
+    data.message && setAlert(data.message)
+    setToken(null)
   }
 
   return (
     <main>
+      {alert && <Alert message={alert} type={'error'} />}
       <form onSubmit={register}>
         <Input 
           label={'Email adress'}

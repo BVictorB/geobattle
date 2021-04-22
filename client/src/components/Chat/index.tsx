@@ -1,6 +1,6 @@
 import { FC, useState, useEffect, FormEvent } from 'react'
 import { Socket } from 'socket.io-client'
-import { ChatInput, ChatMessages, Loader, RoomInfo } from '@components'
+import { ChatInput, ChatMessages, RoomInfo } from '@components'
 import { MessageInterface } from '@interfaces'
 import './Chat.scss'
 
