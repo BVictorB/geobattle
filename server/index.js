@@ -105,10 +105,10 @@ io.on('connect', (socket) => {
     roomData = await Room.findOne({ _id: currentRoom }, err => err && console.log(err))
 
     socket.join(room)
+    callback(connectedUser.username)
     socket.emit('message', { user: 'admin', text: `${connectedUser.username}, welcome to room ${roomData.name}.`})
     socket.broadcast.to(room).emit('message', { user: 'admin', text: `${connectedUser.username} has joined!` })
     io.to(room).emit('roomData', { ...roomData._doc })
-    callback(connectedUser.username)
   })
 
   socket.on('sendMessage', async (message, callback) => {

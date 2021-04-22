@@ -20,13 +20,14 @@ const RoomInfo:FC<Props> = ({ socket }) => {
   }, [socket])
 
   useEffect(() => {
-    if (!roomData || !roomData.timeleft) return
-    setInterval(() => {
+    if (!roomData?.timeleft) return
+    const interval = setInterval(() => {
       const now = new Date().getTime() / 1000
       const difference = roomData.timeleft - now
-      if (difference < 0) return
       setTimeLeft(roundNum(difference, 0))
     }, 1000)
+
+    return () => clearInterval(interval)
   }, [roomData])
 
   if (!roomData) return <Loader />

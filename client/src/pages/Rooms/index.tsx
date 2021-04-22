@@ -2,7 +2,7 @@ import { FC, useState, useEffect, useContext } from 'react'
 import { TokenContext } from '@contexts'
 import { RoomInterface } from '@interfaces'
 import { fetchWithToken } from '@utils'
-import { RoomCard } from '@components'
+import { Loader, RoomCard } from '@components'
 import './Rooms.scss'
 
 const Rooms:FC = () => {
@@ -23,9 +23,11 @@ const Rooms:FC = () => {
     token && fetchRooms()
   }, [token, setToken])
 
+  if (!rooms) return <Loader />
+
   return (
     <main className='p-rooms'>
-      {rooms && rooms.map((room, index) => <RoomCard key={index} room={room} />)}
+      {rooms.map((room, index) => <RoomCard key={index} room={room} />)}
     </main>
   )
 }

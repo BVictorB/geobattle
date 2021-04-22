@@ -21,7 +21,7 @@ const Map:FC<Props> = ({ socket }) => {
 
   useEffect(() => {
     socket.on('roomData', (data: RoomInterface) => {
-      if (data.round !== data.rounds) {
+      if (data.round < data.rounds) {
         setCoords(data.coords[data.round].coords)
       }
     })

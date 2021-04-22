@@ -1,12 +1,12 @@
 import { FC, useState, useEffect, FormEvent } from 'react'
 import { Socket } from 'socket.io-client'
-import { ChatInput, ChatMessages, RoomInfo } from '@components'
+import { ChatInput, ChatMessages, Loader, RoomInfo } from '@components'
 import { MessageInterface } from '@interfaces'
 import './Chat.scss'
 
 interface Props {
   socket: Socket,
-  name: string
+  name: string | null
 }
 
 const Chat:FC<Props> = ({ socket, name }) => {
@@ -31,7 +31,7 @@ const Chat:FC<Props> = ({ socket, name }) => {
     <div className='m-chat'>
       {socket && <RoomInfo socket={socket} />}
       <div className='m-chat__container'>
-        {messages && <ChatMessages messages={messages} name={name} />}
+        {messages && name && <ChatMessages messages={messages} name={name} />}
       </div>
       <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
     </div>
