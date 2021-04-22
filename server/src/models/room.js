@@ -26,8 +26,7 @@ const roomSchema = new Schema({
     default: 0
   },
   timeleft: {
-    type: Number,
-    default: (new Date().getTime() / 1000) + 60
+    type: Number
   }
 })
 
