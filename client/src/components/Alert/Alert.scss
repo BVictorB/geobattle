@@ -1,13 +1,10 @@
 .m-alert {
+  display: flex;
   top: 2rem;
   position: absolute;
-  width: 20rem;
-  height: 4rem;
+  min-height: 4rem;
   border-radius: 1rem;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.15em;
-  padding-top: .8em;
+  padding: 1em 1.5em 1em 1em;
   color: white;
   animation: 
     slideIn 300ms ease forwards,
@@ -18,11 +15,21 @@
   }
 
   &--success {
-    background: green;
+    background: #009723;
   }
 
   &--warning {
-    background: rgb(221, 107, 0);
+    background: #cb9100;
+  }
+
+  p {
+    font-size: 1.15em;
+    font-weight: 600;
+  }
+
+  svg {
+    height: 2em;
+    margin-right: 1em;
   }
 }
 
