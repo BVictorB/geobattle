@@ -1,45 +1,50 @@
 import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router'
-import { Input, Select, Radio } from '@components'
+import { Input, Select, Radio, Alert } from '@components'
 import { TokenContext } from '@contexts'
 
 const Create:FC = () => {
-  const [name, setName] = useState<string>()
-  const [rounds, setRounds] = useState<string>('regular')
-  const [time, setTime] = useState<string>('regular')
-  const [continent, setContinent] = useState<string>('all')
-  const [room, setRoom] = useState<string>()
-  const { token } = useContext(TokenContext)
+  const 
+    [name, setName] = useState<string>(),
+    [rounds, setRounds] = useState<string>('regular'),
+    [time, setTime] = useState<string>('regular'),
+    [continent, setContinent] = useState<string>('all'),
+    [room, setRoom] = useState<string>(),
+    [alert, setAlert] = useState<string | null>(null),
+    { token } = useContext(TokenContext)
 
   const createRoom = (e: FormEvent) => {
+    setAlert(null)
     e.preventDefault()
 
-    if (name && rounds && time) {
-      const roomDetails = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': token
-        },
-        body: JSON.stringify({
-          name,
-          rounds,
-          time,
-          continent
-        })
-      }
-    
-      fetch('/createroom', roomDetails)
-        .then(res => res.json())
-        .then(data => setRoom(data.id))
-        .catch((err) => console.log(err))
-    } else {
-      console.log('Please fill in all the fields')
+    if (!name || !rounds || !time || !continent) {
+      setAlert('Please fill in all fields')
+      return
     }
+
+    const roomDetails = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token
+      },
+      body: JSON.stringify({
+        name,
+        rounds,
+        time,
+        continent
+      })
+    }
+  
+    fetch('/createroom', roomDetails)
+      .then(res => res.json())
+      .then(data => setRoom(data.id))
+      .catch((err) => console.log(err))
   }
 
   return (
     <main>
+      {alert && <Alert message={alert} type={'error'} />}
       <form onSubmit={createRoom}>
         <Input 
           label={'Room name'}

@@ -6,8 +6,9 @@ import { Loader, RoomCard } from '@components'
 import './Rooms.scss'
 
 const Rooms:FC = () => {
-  const [rooms, setRooms] = useState<RoomInterface[]>()
-  const { token, setToken } = useContext(TokenContext)
+  const 
+    [rooms, setRooms] = useState<RoomInterface[]>(),  
+    { token, setToken } = useContext(TokenContext)
 
   useEffect(() => {
     const fetchRooms = async () => {

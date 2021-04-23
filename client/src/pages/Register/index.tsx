@@ -5,12 +5,13 @@ import { TokenContext } from '@contexts'
 import { AuthInterface } from '@interfaces'
 
 const Register:FC = () => {
-  const [email, setEmail] = useState<string>()
-  const [username, setUsername] = useState<string>()
-  const [password, setPassword] = useState<string>()
-  const [repeatedPassword, setRepeatedPassword] = useState<string>()
-  const { token, setToken } = useContext(TokenContext)
-  const [alert, setAlert] = useState<string | null>(null)
+  const 
+    [email, setEmail] = useState<string>(),
+    [username, setUsername] = useState<string>(),
+    [password, setPassword] = useState<string>(),
+    [repeatedPassword, setRepeatedPassword] = useState<string>(),
+    [alert, setAlert] = useState<string | null>(null),
+    { token, setToken } = useContext(TokenContext)
 
   const register = (e: FormEvent) => {
     setAlert(null)

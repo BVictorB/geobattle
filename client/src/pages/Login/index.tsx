@@ -5,10 +5,11 @@ import { TokenContext } from '@contexts'
 import { AuthInterface } from '@interfaces'
 
 const Login:FC = () => {
-  const [email, setEmail] = useState<string>()
-  const [password, setPassword] = useState<string>()
-  const { token, setToken } = useContext(TokenContext)
-  const [alert, setAlert] = useState<string | null>(null)
+  const 
+    [email, setEmail] = useState<string>(),
+    [password, setPassword] = useState<string>(),
+    [alert, setAlert] = useState<string | null>(null),
+    { token, setToken } = useContext(TokenContext)
 
   const login = (e: FormEvent) => {
     setAlert(null)

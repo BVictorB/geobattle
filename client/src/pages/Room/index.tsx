@@ -9,10 +9,11 @@ import './Room.scss'
 let socket: Socket
 
 const Room:FC = () => {
-  const [name, setName] = useState<string | null>(null)
-  const [room, setRoom] = useState<string>()
-  const { id } = useParams<any>()
-  const { token, setToken } = useContext(TokenContext)
+  const 
+    [name, setName] = useState<string | null>(null),
+    [room, setRoom] = useState<string>(),
+    { id } = useParams<any>(),
+    { token, setToken } = useContext(TokenContext)
 
   useEffect(() => {
     const fetchRoom = async () => {

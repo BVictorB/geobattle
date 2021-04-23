@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import Leaflet from 'leaflet'
-import { LocationMarker, Loader } from '@components'
+import { LocationMarker, Loader, Alert } from '@components'
 import { deCamelize, camelize } from '@utils'
 import './Admin.scss'
 
@@ -12,11 +12,19 @@ interface Location {
   _id: string
 }
 
+interface LocationRequest {
+  err: boolean,
+  message: string,
+  locations?: Location[]
+}
+
 const Admin:FC = () => {
   const 
     [location, setLocation] = useState<[number, number] | null>(null),
     [locationData, setLocationData] = useState<{ city: string, continent: string } | null>(null),
     [locations, setLocations] = useState<Location[] | null>(null),
+    [alert, setAlert] = useState<string | null>(null),
+    [alertType, setAlertType] = useState<string | null>(null),
     southWest = Leaflet.latLng(-90, -180),
     northEast = Leaflet.latLng(90, 180),
     bounds = Leaflet.latLngBounds(southWest, northEast)
@@ -50,6 +58,8 @@ const Admin:FC = () => {
 
   const addLocation = () => {
     if (!locationData || !location) return
+    setAlert(null)
+    setAlertType(null)
 
     const fetchDetails = {
       method: 'POST',
@@ -65,11 +75,7 @@ const Admin:FC = () => {
   
     fetch('/createlocation', fetchDetails)
       .then(res => res.json())
-      .then(data => {
-        setLocations(data)
-        setLocationData(null)
-        setLocation(null)
-      })
+      .then(data => handleLocationRequest(data))
       .catch((err) => console.log(err))
   }
 
@@ -84,12 +90,26 @@ const Admin:FC = () => {
   
     fetch('/removelocation', fetchDetails)
       .then(res => res.json())
-      .then(data => setLocations(data))
+      .then(data => handleLocationRequest(data))
       .catch((err) => console.log(err))
+  }
+
+  const handleLocationRequest = (data: LocationRequest) => {
+    if (!data.err && data.locations) {
+      setLocations(data.locations)
+      setLocationData(null)
+      setLocation(null)
+      setAlertType('success')
+      setAlert(data.message)
+      return
+    }
+    setAlert(data.message)
+    setAlertType('error')
   }
 
   return (
     <main className='p-admin'>
+      {alert && alertType && <Alert message={alert} type={alertType} />}
       <MapContainer
         className='p-admin__map'
         center={{ lat: 45.6, lng: -11.4 }}

@@ -4,7 +4,13 @@ const createlocation = async (req, res) => {
   const { coords, city, continent } = req.body
 
   const searchCity = await Location.find({ city: city })
-  if (searchCity.length) return
+  if (searchCity.length) {
+    res.json({
+      err: true,
+      message: 'This location already exists.'
+    })
+    return
+  }
 
   const location = new Location()
   location.coords = coords
@@ -14,7 +20,11 @@ const createlocation = async (req, res) => {
   location.save(async (err, location) => {
     if (err) return
     const locations = await Location.find({}).sort({ city: 1 })
-    res.json(locations)
+    res.json({
+      err: false,
+      message: 'Location successfully added!',
+      locations
+    })
   })
 }
 

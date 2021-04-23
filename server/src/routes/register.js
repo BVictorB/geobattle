@@ -15,7 +15,7 @@ const register = async (req, res) => {
   if (password !== repeatedPassword) {
     res.json({
       auth: false,
-      message: 'The password do not match.'
+      message: 'The passwords do not match.'
     })
     return
   }
