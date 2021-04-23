@@ -3,11 +3,20 @@ const jwt = require('jsonwebtoken')
 
 const register = async (req, res) => {
   const { email, username, password, repeatedPassword } = req.body
+  const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
   if (!email || !username || !password || !repeatedPassword) {
     res.json({
       auth: false,
       message: 'Please fill in all fields.'
+    })
+    return
+  }
+
+  if (!emailValidator.test(email)) {
+    res.json({
+      auth: false,
+      message: 'Please fill in a valid email adress.'
     })
     return
   }

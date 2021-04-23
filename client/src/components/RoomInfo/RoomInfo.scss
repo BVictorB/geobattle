@@ -1,8 +1,19 @@
 .m-room-info {
+  padding: 0 2em;
   color: #fafafa;
-  text-align: center;
 
   h2 {
     font-size: 2em;
+    line-height: 1;
+  }
+
+  &__round {
+    margin-left: 1em;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
   }
 }

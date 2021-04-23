@@ -34,12 +34,19 @@ const RoomInfo:FC<Props> = ({ socket }) => {
 
   return (
     <div className='m-room-info'>
-      <h2>{roomData.name}</h2>
-      <h3>Round: {roomData.round + 1}</h3>
-      <h3>Time left: {timeLeft}</h3>
-      {roomData.users.sort((a, b) => b.points - a.points).map((user, index) => (
-        <p className='scoreboard' key={index}>{index + 1}. {user.username}: {user.points}</p>
-      ))}
+      <div className='m-room-info__container'>
+        <h2 className='m-room-info__name'>{roomData.name}</h2>
+        <h2 className='m-room-info__round'>{roomData.round + 1}/{roomData.rounds}</h2>
+      </div>
+      <div className='m-room-info__container'>
+        <div>
+          <h3>Scoreboard:</h3>
+          {roomData.users.sort((a, b) => b.points - a.points).map((user, index) => (
+            <p className='scoreboard' key={index}>{index + 1}. {user.username}: {user.points}</p>
+          ))}
+        </div>
+        <h3>Time left: {timeLeft}</h3>
+      </div>
     </div>
   )
 }

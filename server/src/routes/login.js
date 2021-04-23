@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const login = async (req, res) => {
   const { email, password } = req.body
-
+  const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
   if (!email || !password) {
     res.json({
@@ -14,11 +14,19 @@ const login = async (req, res) => {
     return
   }
 
+  if (!emailValidator.test(email)) {
+    res.json({
+      auth: false,
+      message: 'Please fill in a valid email adress.'
+    })
+    return
+  }
+
   const checkPassword = (err, matches, id) => {
     if (err) {
       res.json({
         auth: false,
-        message: 'Something went wrong...'
+        message: 'Something went wrong.'
       })
     } else if (matches) {
       const token = jwt.sign({ id }, process.env.JWT_SECRET, {
