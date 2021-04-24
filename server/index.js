@@ -51,6 +51,13 @@ const watchRooms = () => {
         $set: { timeleft: (currentTime + room.time) }
       }, err => err && console.log(err))
 
+      Room.updateMany({ _id: room.id }, 
+        { $set: { 'users.$[].muted': false } 
+      }, err => err && console.log(err))
+
+      const data = await Room.findOne({ _id: room })
+      if (!data.coords[data.round - 1]) return
+      io.to(room.id).emit('message', { user: 'admin', text: `The correct city was ${data.coords[data.round - 1].city}!` })
     })
   }, 1000)
 }
@@ -67,13 +74,7 @@ io.on('connect', (socket) => {
     const roomDB = await Room.watch({ _id: room })
   
     roomDB.on('change', async (e) => {
-      if (String(e.documentKey._id) !== String(room)) return
-
       const data = await Room.findOne({ _id: room })
-      if (e.updateDescription?.updatedFields?.round && data.coords[data.round - 1]) {
-        io.to(currentRoom).emit('message', { user: 'admin', text: `The correct city was ${data.coords[data.round - 1].city}!` })
-      }
-      
       roomData = data
       io.to(room).emit('roomData', { ...data._doc })
     })
@@ -95,7 +96,8 @@ io.on('connect', (socket) => {
     const userData = {
       id: connectedUser.id,
       username: connectedUser.username,
-      points: 0
+      points: 0,
+      muted: false
     }
 
     await Room.updateOne({ _id: room }, {
@@ -113,6 +115,12 @@ io.on('connect', (socket) => {
 
   socket.on('sendMessage', async (message, callback) => {
     if (!connectedUser) return
+    const checkMuted = await Room.find({ 'users.id': connectedUser.id }, { _id: 0, 'users.$': 1 })
+    if (checkMuted[0].users[0].muted) {
+      socket.emit('message', { user: 'admin', text: 'You have already guessed the correct city, please wait till next round!'})
+      callback()
+      return
+    }
 
     const location = await getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.API_KEY}&query=${message}`)
 
@@ -133,8 +141,9 @@ io.on('connect', (socket) => {
 
     if (dist < 10) {
       io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city!` })
-      Room.updateOne({ 'users.id': connectedUser.id }, { 
-        $inc: { 'users.$.points': 10 }
+      Room.updateMany({ 'users.id': connectedUser.id }, { 
+        $inc: { 'users.$.points': 10 },
+        $set: { 'users.$.muted': true }
       }, err => err && console.log(err))
     } else {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })

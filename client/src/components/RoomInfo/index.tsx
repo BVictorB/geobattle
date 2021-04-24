@@ -42,10 +42,12 @@ const RoomInfo:FC<Props> = ({ socket }) => {
         <div>
           <h3>Scoreboard:</h3>
           {roomData.users.sort((a, b) => b.points - a.points).map((user, index) => (
-            <p className='scoreboard' key={index}>{index + 1}. {user.username}: {user.points}</p>
+            <p key={index}>{index + 1}. {user.username}: {user.points}</p>
           ))}
         </div>
-        <h3>Time left: {timeLeft}</h3>
+        <h3 className={timeLeft && timeLeft <= 10 ? 'm-room-info__time m-room-info__time--red' : ''}>
+          Time left: <span>{timeLeft}</span>
+        </h3>
       </div>
     </div>
   )
