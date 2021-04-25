@@ -20,7 +20,7 @@ const RoomInfo:FC<Props> = ({ socket }) => {
   }, [socket])
 
   useEffect(() => {
-    if (!roomData?.timeleft) return
+    if (!roomData?.timeleft || !roomData?.started) return
     const interval = setInterval(() => {
       const now = new Date().getTime() / 1000
       const difference = roomData.timeleft - now
@@ -31,6 +31,16 @@ const RoomInfo:FC<Props> = ({ socket }) => {
   }, [roomData])
 
   if (!roomData) return <Loader />
+
+  if (!roomData.started) {
+    return (
+      <div className='m-room-info'>
+        <div className='m-room-info__container'>
+          <h2 className='m-room-info__name'>{roomData.name}</h2>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='m-room-info'>

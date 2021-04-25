@@ -34,12 +34,29 @@ const
   calcDist = require('./src/utils/calcDist'),
   roundNum = require('./src/utils/roundNum')
 
+const checkReady = (room) => {
+  const allReady = room.users.every(user => user.ready === true)
+  if (!allReady) return
+  Room.updateOne({ _id: room.id }, { 
+    $set: { started: true }
+  }, err => err && console.log(err))
+}
+
 const watchRooms = () => {
   setInterval(async () => {
     const rooms = await Room.find({})
     const currentTime = new Date().getTime() / 1000
 
     rooms.forEach(async (room) => {
+      if (!room.started) return checkReady(room)
+
+      if (!room.timeleft) {
+        Room.updateOne({ _id: room.id }, { 
+          $set: { timeleft: (currentTime + room.time) }
+        }, err => err && console.log(err))
+        return
+      }
+
       const difference = roundNum(room.timeleft - currentTime, 0)
       if (difference > 0) return
 
@@ -55,9 +72,8 @@ const watchRooms = () => {
         { $set: { 'users.$[].muted': false } 
       }, err => err && console.log(err))
 
-      const data = await Room.findOne({ _id: room })
-      if (!data.coords[data.round - 1]) return
-      io.to(room.id).emit('message', { user: 'admin', text: `The correct city was ${data.coords[data.round - 1].city}!` })
+      if (!room.coords[room.round]) return
+      io.to(room.id).emit('message', { user: 'admin', text: `The correct city was ${room.coords[room.round].city}!` })
     })
   }, 1000)
 }
@@ -76,7 +92,7 @@ io.on('connect', (socket) => {
     roomDB.on('change', async (e) => {
       const data = await Room.findOne({ _id: room })
       roomData = data
-      io.to(room).emit('roomData', { ...data._doc })
+      socket.emit('roomData', { ...data._doc })
     })
   }
 
@@ -97,7 +113,8 @@ io.on('connect', (socket) => {
       id: connectedUser.id,
       username: connectedUser.username,
       points: 0,
-      muted: false
+      muted: false,
+      ready: false
     }
 
     await Room.updateOne({ _id: room }, {
@@ -110,7 +127,13 @@ io.on('connect', (socket) => {
     callback(connectedUser.username)
     socket.emit('message', { user: 'admin', text: `${connectedUser.username}, welcome to room ${roomData.name}.`})
     socket.broadcast.to(room).emit('message', { user: 'admin', text: `${connectedUser.username} has joined!` })
-    io.to(room).emit('roomData', { ...roomData._doc })
+  })
+
+  socket.on('ready', () => {
+    if (!connectedUser) return
+    Room.updateOne({ 'users.id': connectedUser.id }, { 
+      $set: { 'users.$.ready': true }
+    }, err => err && console.log(err))
   })
 
   socket.on('sendMessage', async (message, callback) => {
@@ -118,6 +141,12 @@ io.on('connect', (socket) => {
     const checkMuted = await Room.find({ 'users.id': connectedUser.id }, { _id: 0, 'users.$': 1 })
     if (checkMuted[0].users[0].muted) {
       socket.emit('message', { user: 'admin', text: 'You have already guessed the correct city, please wait till next round!'})
+      callback()
+      return
+    }
+
+    if (!roomData.started) {
+      io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
       callback()
       return
     }

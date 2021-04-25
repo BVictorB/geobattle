@@ -33,14 +33,12 @@ const createroom = async (req, res) => {
 
   const locations = await Location.find({ continent: continent === 'all' ? { $exists: true } : continent })
   const pickedLocations = locations.sort(() => .5 - Math.random()).slice(0, roundsAmount)
-  const timeleft = (new Date().getTime() / 1000) + timeAmount
 
   const room = new Room()
   room.name = name
   room.rounds = roundsAmount
   room.time = timeAmount
   room.coords = pickedLocations
-  room.timeleft = timeleft
 
   room.save((err, room) => {
     !err && res.json({ 

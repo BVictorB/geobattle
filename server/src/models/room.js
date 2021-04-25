@@ -26,7 +26,12 @@ const roomSchema = new Schema({
     default: 0
   },
   timeleft: {
-    type: Number
+    type: Number,
+    default: 0
+  },
+  started: {
+    type: Boolean,
+    default: false
   }
 })
 

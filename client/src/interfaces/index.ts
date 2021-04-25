@@ -1,7 +1,8 @@
 export interface UserInterface {
   id: string,
   username: string,
-  points: number
+  points: number,
+  ready: boolean
 }
 
 export interface RoomInterface {
@@ -15,7 +16,8 @@ export interface RoomInterface {
     city: string
   }[],
   round: number,
-  timeleft: number
+  timeleft: number,
+  started: boolean
 }
 
 export interface MessageInterface {
