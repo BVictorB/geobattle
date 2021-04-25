@@ -35,6 +35,7 @@ const
   roundNum = require('./src/utils/roundNum')
 
 const checkReady = (room) => {
+  if (!room.users.length) return
   const allReady = room.users.every(user => user.ready === true)
   if (!allReady) return
   Room.updateOne({ _id: room.id }, { 
@@ -131,7 +132,7 @@ io.on('connect', (socket) => {
 
   socket.on('ready', () => {
     if (!connectedUser) return
-    Room.updateOne({ 'users.id': connectedUser.id }, { 
+    Room.updateMany({ 'users.id': connectedUser.id }, { 
       $set: { 'users.$.ready': true }
     }, err => err && console.log(err))
   })
