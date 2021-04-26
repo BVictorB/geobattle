@@ -32,6 +32,10 @@ const roomSchema = new Schema({
   started: {
     type: Boolean,
     default: false
+  },
+  finished: {
+    type: Boolean,
+    default: false
   }
 })
 

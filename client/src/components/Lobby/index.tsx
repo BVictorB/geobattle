@@ -6,10 +6,11 @@ import './Lobby.scss'
 
 interface Props {
   socket: Socket,
-  name: string | null
+  name: string | null,
+  gameState: string
 }
 
-const Lobby:FC<Props> = ({ socket, name }) => {
+const Lobby:FC<Props> = ({ socket, name, gameState }) => {
   const [roomData, setRoomData] = useState<RoomInterface>()
 
   useEffect(() => {
@@ -19,6 +20,16 @@ const Lobby:FC<Props> = ({ socket, name }) => {
   }, [socket])
 
   if (!roomData) return <Loader />
+
+  if (gameState === 'finished') {
+    return (
+      <div className='m-lobby'>
+      <h2>Lobby</h2>
+      <p>Game is finished</p>
+      <p>Leaderboards here..</p>
+    </div>
+    )
+  }
 
   return (
     <div className='m-lobby'>

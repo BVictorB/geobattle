@@ -43,14 +43,25 @@ const checkReady = (room) => {
   }, err => err && console.log(err))
 }
 
+const finishRoom = (room) => {
+  Room.updateOne({ _id: room.id }, { 
+    $set: { finished: true }
+  }, err => err && console.log(err))
+
+  Room.updateMany({ _id: room.id }, 
+    { $set: { 'users.$[].guessed': false } 
+  }, err => err && console.log(err))
+}
+
 const watchRooms = () => {
   setInterval(async () => {
     const rooms = await Room.find({})
     const currentTime = new Date().getTime() / 1000
 
     rooms.forEach(async (room) => {
+      if (room.finished) return
       if (!room.started) return checkReady(room)
-
+      if (room.round && !(room.round < room.rounds)) return finishRoom(room)
       if (!room.timeleft) {
         Room.updateOne({ _id: room.id }, { 
           $set: { timeleft: (currentTime + room.time) }
@@ -70,7 +81,7 @@ const watchRooms = () => {
       }, err => err && console.log(err))
 
       Room.updateMany({ _id: room.id }, 
-        { $set: { 'users.$[].muted': false } 
+        { $set: { 'users.$[].guessed': false } 
       }, err => err && console.log(err))
 
       if (!room.coords[room.round]) return
@@ -114,7 +125,7 @@ io.on('connect', (socket) => {
       id: connectedUser.id,
       username: connectedUser.username,
       points: 0,
-      muted: false,
+      guessed: false,
       ready: false
     }
 
@@ -139,14 +150,14 @@ io.on('connect', (socket) => {
 
   socket.on('sendMessage', async (message, callback) => {
     if (!connectedUser) return
-    const checkMuted = await Room.find({ 'users.id': connectedUser.id }, { _id: 0, 'users.$': 1 })
-    if (checkMuted[0].users[0].muted) {
+    const checkGuessed = await Room.find({ 'users.id': connectedUser.id }, { _id: 0, 'users.$': 1 })
+    if (checkGuessed[0].users[0].guessed) {
       socket.emit('message', { user: 'admin', text: 'You have already guessed the correct city, please wait till next round!'})
       callback()
       return
     }
 
-    if (!roomData.started) {
+    if (!roomData.started || roomData.finished) {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
       callback()
       return
@@ -173,7 +184,7 @@ io.on('connect', (socket) => {
       io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city!` })
       Room.updateMany({ 'users.id': connectedUser.id }, { 
         $inc: { 'users.$.points': 10 },
-        $set: { 'users.$.muted': true }
+        $set: { 'users.$.guessed': true }
       }, err => err && console.log(err))
     } else {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })

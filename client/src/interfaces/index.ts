@@ -17,7 +17,8 @@ export interface RoomInterface {
   }[],
   round: number,
   timeleft: number,
-  started: boolean
+  started: boolean,
+  finished: boolean
 }
 
 export interface MessageInterface {
