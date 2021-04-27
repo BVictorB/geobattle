@@ -52,5 +52,5 @@
   "devDependencies": {
     "craco-alias": "^2.2.0"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "https://geobattle-bvictorb.herokuapp.com/"
 }
