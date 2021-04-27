@@ -5,10 +5,42 @@
   height: 100%;
   border-radius: 1em 0 0 1em;
   color: white;
-  background: rgb(58, 58, 63);
+  background: #3a3a3f;
 
-  h2 {
+  &__title {
     font-size: 2em;
     line-height: 1.2;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    margin: .25em 0;
+
+    &__name {
+      font-size: 1.5em;
+    }
+  }
+
+  svg {
+    width: 1.2em;
+    margin: .25em .5em 0 0;
+  }
+
+  &__button {
+    margin-left: .5rem;
+    font-weight: 600;
+    background: #7cda3d;
+    border-radius: .5rem;
+    border: 2px solid #7cda3d;
+    width: 4rem;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+
+    &:hover, &:focus {
+      color: #FAFAFA;
+      background: #3a3a3f;
+      outline: none;
+    }
   }
 }

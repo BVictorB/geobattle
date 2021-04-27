@@ -7,14 +7,18 @@ import './Rooms.scss'
 
 const Rooms:FC = () => {
   const 
-    [rooms, setRooms] = useState<RoomInterface[]>(),  
+    [openRooms, setOpenRooms] = useState<RoomInterface[]>(),
+    [playingRooms, setPlayingRooms] = useState<RoomInterface[]>(),
+    [finishedRooms, setFinishedRooms] = useState<RoomInterface[]>(),
     { token, setToken } = useContext(TokenContext)
 
   useEffect(() => {
     const fetchRooms = async () => {
       const res = await fetchWithToken({ endpoint: '/rooms', token })
       if (res.auth) {
-        setRooms(res.data)
+        setOpenRooms(res.data.filter((room: RoomInterface) => !room.started))
+        setPlayingRooms(res.data.filter((room: RoomInterface) => room.started && !room.finished))
+        setFinishedRooms(res.data.filter((room: RoomInterface) => room.finished))
       } else {
         window.localStorage.removeItem('token')
         setToken(null)
@@ -24,11 +28,18 @@ const Rooms:FC = () => {
     token && fetchRooms()
   }, [token, setToken])
 
-  if (!rooms) return <Loader />
+  if (!openRooms && !playingRooms && !finishedRooms) return <Loader />
 
   return (
-    <main className='p-rooms'>
-      {rooms.map((room, index) => <RoomCard key={index} room={room} />)}
+    <main>
+      <div className='p-rooms'>
+        {openRooms?.length && <h2>Open</h2>}
+        {openRooms && openRooms.map((room, index) => <RoomCard key={index} room={room} />)}
+        {playingRooms?.length && <h2>Playing</h2>}
+        {playingRooms && playingRooms.map((room, index) => <RoomCard key={index} room={room} />)}
+        {finishedRooms?.length && <h2>Finished</h2>}
+        {finishedRooms && finishedRooms.map((room, index) => <RoomCard key={index} room={room} />)}
+      </div>
     </main>
   )
 }

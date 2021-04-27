@@ -139,6 +139,7 @@ io.on('connect', (socket) => {
     callback(connectedUser.username)
     socket.emit('message', { user: 'admin', text: `${connectedUser.username}, welcome to room ${roomData.name}.`})
     socket.broadcast.to(room).emit('message', { user: 'admin', text: `${connectedUser.username} has joined!` })
+    socket.emit('roomData', { ...roomData._doc })
   })
 
   socket.on('ready', () => {
