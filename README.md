@@ -42,7 +42,8 @@ I have also split up the server and client side code into two different folders,
 
 ##  :repeat: Data lifecycle diagram
 All the data that moves around between the client, server, database and API.  
-![Data lifecycle diagram](https://user-images.githubusercontent.com/10921830/116404257-c3b03880-a82e-11eb-8098-da8d3fdad1cd.png)
+![Data lifecycle diagram](https://user-images.githubusercontent.com/10921830/116417000-2ad3ea00-a83b-11eb-9d61-31ce44c99431.png)
+
 
 ## :paperclip: API
 I have used the [positionstack API](https://positionstack.com/) for this project. This API can do forward and reverse geocoding. This allows you to get coordinates of a location (and other information) when you do a request (forward geocoding) and get the name of a location when you already have the coordinates (reverse geocoding). This is great for my project since I have to check if people guess the correct location.  
@@ -120,6 +121,40 @@ Here are some dependencies that I've used during this project.
 
 ### Mongoose
 
+## :high_brightness: Final product
+I am very satisfied with the final result of this project, I've put a lot of time and effort in creating this application, and am very happy how it turned out in such a small amount of time. Here are some impressions (or just go to the [live version](https://geobattle.victorboucher.dev/)):
+
+This is the register page, there is validation on every field. It checks if email adress is valid, and not already registered, checks if username is available and if passwords match. The validation happens on the server side, if anything is filled in incorrectly or an email/username is already registered it responds with an error message that then gets displayed to the client.  
+
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412245-c7e05400-a836-11eb-99b7-4ff9e31340fd.png)
+
+
+This is the rooms page, all open, playing and closed rooms are displayed here with the title of the room, the amount of rounds, the amount of time per round and the amount of users in the room.  
+
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412243-c7e05400-a836-11eb-9e92-4cc4d4785d7c.png)
+
+
+This is the page for creating a new room, this form has validation again so every field has to be filled in. Once a user clicks the 'Create room' button the room gets created and the user gets redirected into the lobby. The length of game has three different options, short being 5 rounds, regular being 10 rounds and long being 15 rounds. Same goes for the length of rounds option, where the short option is 30 seconds, the regular one being 60 seconds and the long one being 90 seconds.  
+
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116420838-a2efdf00-a83e-11eb-8647-036ed55996dd.png)
+
+
+This is the lobby that you get in once you join a room, users can already chat with each other here, and every connected user is displayed on the left with the state of them being ready or not. Once all players are ready the match starts.  
+
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412242-c7e05400-a836-11eb-8c3f-ca33b3289785.png)
+
+
+This is the in-game view, with the generated satellite map on the left and the chat on the right. If you do not guess the city correctly you get feedback how far you are off from the correct city. If you guess correctly you gain points and will get muted from typing in chat until the new round has started. At the top of the chat is some information, the name of the room, the current round and total amount of rounds, how much time there is left on the current round and a scoreboard that updates real-time and orders players on their total amount of points.
+
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412239-c6af2700-a836-11eb-971d-ba6d223303da.png)
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412232-c57dfa00-a836-11eb-8120-1f54da1568e8.png)
+
+
+This is the admin panel, it is an interactive map with a sidebar where you can add new locations, view existing locations and remove existing locations. If you click on one of the existing locations in the sidebar, the map moves to the location and places a marker on the exact location. You also get positive/negative feedback depending on your interactions.  
+
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412229-c57dfa00-a836-11eb-9a5d-5b9956510593.png)
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412225-c3b43680-a836-11eb-8804-01a7ec3f90a9.png)
+![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412210-c020af80-a836-11eb-9a0d-301dc00f9067.png)
 
 ## :inbox_tray: Install
 
