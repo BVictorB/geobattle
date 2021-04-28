@@ -192,9 +192,11 @@ io.on('connect', (socket) => {
     }
 
     if (dist < 10) {
+      const guessedUsers = roomData.users.filter(user => user.guessed).length
+      const points = 100 - (guessedUsers >= 3 ? 3 : guessedUsers) * 20
       io.to(currentRoom).emit('message', { user: 'admin', text: `${connectedUser.username} guessed the right city!` })
       Room.updateMany({ 'users.id': connectedUser.id }, { 
-        $inc: { 'users.$.points': 10 },
+        $inc: { 'users.$.points': points },
         $set: { 'users.$.guessed': true }
       }, err => err && console.log(err))
     } else {

@@ -1,11 +1,12 @@
 .m-leaderboards {
   &__title {
     font-size: 2em;
+    margin-top: 2rem;
   }
 
   &__container {
     display: flex;
-    margin: 1em 0;
+    margin: .5em 0 1.5em;
     border: 1px solid #7cda3d;
     border-radius: 1em;
     padding: 1em 1.5em;
