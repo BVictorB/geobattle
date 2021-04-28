@@ -2,8 +2,10 @@
 This project was created for the Real Time Web course during the Web Design and Development minor. GeoBattle is an online multiplayer game where you have to guess a city or location based on a satellite image. The players that are the fastest with guessing the correct city will gain the most points and eventually win the game! The project uses websockets to give live feedback to the users and is built with React to handle state efficiently.
 
 ## :speech_balloon: First ideas
-I first wanted to create an application where I would use live soccer data during soccer matches combined with static data (when a match would be played for example). This would be a good way to integrate websockets into an application. When I started looking for companies that can deliver the live data of soccer matches, there were not any good ones available that were free. This data is worth a lot of money (which is understandable since there is such a big market for it), and after finding this out I decided to do something else.
-Making an online multiplayer game sounded like a lot of fun to me, so I started thinking about what I could make. The first thing that popped into my head was a game called [Skribbl](https://skribbl.io/), I sometimes play this with friends, it is an online multiplayer game where everyone gets a turn on drawing something, whilest the others have to guess what the word was what the person that is drawing picked. You just guess in the same chat where you can also communicate with each other. The idea of having a chat to communicate with each other but also to interact with the game appealed to me. I decided to make a same kind of game, but instead of guessing a word based on a drawing, you would have to guess a city or location based on a satellite image.
+I first wanted to create an application where I would use live soccer data during soccer matches combined with static data (when a match would be played for example). This would be a good way to integrate websockets into an application.  
+When I started looking for companies that can deliver the live data of soccer matches, there were not any good ones available that were free. This data is worth a lot of money (which is understandable since there is such a big market for it), and after finding this out I decided to do something else.  
+Making an online multiplayer game sounded like a lot of fun to me, so I started thinking about what I could make. The first thing that popped into my head was a game called [Skribbl](https://skribbl.io/), I sometimes play this with friends, it is an online multiplayer game where everyone gets a turn on drawing something, whilest the others have to guess what the word was what the person that is drawing picked. You just guess in the same chat where you can also communicate with each other.  
+The idea of having a chat to communicate with each other but also to interact with the game appealed to me. I decided to make a same kind of game, but instead of guessing a word based on a drawing, you would have to guess a city or location based on a satellite image.
 
 ## :rocket: Concept
 The concept of GeoBattle is that you can create a room and invite your friends (or let random people join), and battle for the most points. A room has a set amount of rounds and time per round (decided by the person who creates the room), every round the players can guess what city is displayed and earn points when they guess correctly. At the end of the game there will be a winner (the person with the most points).
@@ -36,8 +38,8 @@ Below is a list of features, I have used the MoSCoW method to categorize the fea
   - [ ] Adding or following other people
 
 ## :books: Tech Stack
-For this project I use the React framework with TypeScript and SCSS for the client side and Nodejs with regular JavaScript for the server side. Since we are working with real time data, a framework that handles state changes well (like React) is great to use since it is built for this kind of usage. If I would have to write all the code with vanilla JavaScript, it would take much more time and decrease my productivity and possibilities. I use TypeScript since I share a lot of different kind of data between all my components, with TypeScript I can write strict code where functions and components only accept the types that I want them to receive. This improves my productivity and makes debugging and preventing bugs before they actually happen a lot easier. I have only worked with TypeScript before in a single project, so it still takes some time to get used to. But I already noticed the benefits of it.
-
+For this project I use the React framework with TypeScript and SCSS for the client side and Nodejs with regular JavaScript for the server side. Since we are working with real time data, a framework that handles state changes well (like React) is great to use since it is built for this kind of usage. If I would have to write all the code with vanilla JavaScript, it would take much more time and decrease my productivity and possibilities.  
+I use TypeScript since I share a lot of different kind of data between all my components, with TypeScript I can write strict code where functions and components only accept the types that I want them to receive. This improves my productivity and makes debugging and preventing bugs before they actually happen a lot easier. I have only worked with TypeScript before in a single project, so it still takes some time to get used to. But I already noticed the benefits of it.  
 I have also split up the server and client side code into two different folders, this is because I want to keep a clear overview of my code and keep my structure clean. This has been really beneficial for me, since I also host the server side code on [Heroku](https://heroku.com/) and the client side code on [Vercel](https://vercel.com/).
 
 ##  :repeat: Data lifecycle diagram
@@ -110,8 +112,12 @@ API response:
 
 
 ## :fireworks: Socket events
-...
-
+- :link: join: The join event gets emitted from the client side as soon as someone joins a room, it gives the JSON Web Token that the user has stored (in localstorage and/or React state) and the MongoDB ObjectID to the server. The server then verifies the token, and (if valid) adds the user to the room. When the user gets added to the room all the other users get feedback.
+- :white_check_mark: ready: The ready event gets emitted from the client side once a player clicks on the 'ready' button in the lobby. This event does not emit any data, its single purpose is to let the server know that this player is ready. This then updates the roomData, when all players are ready the game starts.
+- :speech_balloon: message: The message event gets emitted from the server side, it just sends the name of a user and the message itself to all clients.
+- :speech_balloon: sendMessage: The sendMessage event gets emitted from the client side, once the server receives the sendMessage event it checks some information about the room so it knows how to handle the event. If the game is being played at the time of emitting this event, the server checks if this is a location, if it is it will show the distance to the correct location. If the user submitted the correct location the user will gain points and everyone will get feedback. If it is just a regular message everyone will get it displayed in the chat (unless the user is muted once they guessed the correct location in that round already).
+- :door: roomData: The roomData event is by far the most important one, it gets emitted from the server side to the client. The roomData event gets emitted every single time something updates in the Room database object. This contains all information about the room and the users in it.
+- :x: disconnect: This event is quite simple, once a user disconnects it removes them from the list of users and everyone will get an update on the roomData. Everyone will also get a message saying who disconnected.
 
 ## :wrench: Dependencies
 These are the most interesting dependencies that I've used during this project:
@@ -203,9 +209,12 @@ This is the admin panel, it is an interactive map with a sidebar where you can a
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412225-c3b43680-a836-11eb-8804-01a7ec3f90a9.png)
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412210-c020af80-a836-11eb-9a0d-301dc00f9067.png)
 
-## License
+## :scroll: Live version
+As mentioned before, the server side of this application is being hosted on [Heroku](https://heroku.com/) and the client side on [Vercel](https://vercel.com/), click [here](https://geobattle.victorboucher.dev/) to go to the live version. This is being hosted on a sub-domain of my personal website.
 
-
+## :scroll: License
+This repo is licensed as MIT by Victor Boucher, 2021.  
+Click [here](https://github.com/BVictorB/geobattle/blob/master/LICENSE) if you want to read the license.
 
 ## :inbox_tray: Install
 
