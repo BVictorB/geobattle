@@ -27,6 +27,7 @@ Below is a list of features, I have used the MoSCoW method to categorize the fea
   - [X] List of matches that are (almost) starting, so random people can join
   - [X] Feedback how many kilometers you are off from the correct answer
   - [X] Start the match when all players are 'ready'
+  - [X] An admin panel where you can add locations
 
 * Could haves:
   - [X] Account registration and login system
