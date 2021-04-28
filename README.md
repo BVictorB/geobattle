@@ -1,3 +1,5 @@
+![geobattle logo?-01](https://user-images.githubusercontent.com/10921830/116479936-c176ca00-a880-11eb-931c-a4d3938cc018.png)
+
 # GeoBattle
 This project was created for the Real Time Web course during the Web Design and Development minor. GeoBattle is an online multiplayer game where you have to guess a city or location based on a satellite image. The players that are the fastest with guessing the correct city will gain the most points and eventually win the game! The project uses websockets to give live feedback to the users and is built with React to handle state efficiently.
 
@@ -23,7 +25,7 @@ Below is a list of features, I have used the MoSCoW method to categorize the fea
   - [X] Leaderboards during a game
 
 * Should haves:
-  - [ ] Global leaderboards (all time points)
+  - [X] Global leaderboards (all time points)
   - [X] List of matches that are (almost) starting, so random people can join
   - [X] Feedback how many kilometers you are off from the correct answer
   - [X] Start the match when all players are 'ready'
