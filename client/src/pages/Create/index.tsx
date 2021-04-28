@@ -2,6 +2,7 @@ import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router'
 import { Input, Select, Radio, Alert } from 'components'
 import { TokenContext } from 'contexts'
+const { REACT_APP_API: api } = process.env
 
 const Create:FC = () => {
   const 
@@ -36,7 +37,7 @@ const Create:FC = () => {
       })
     }
   
-    fetch('/api/createroom', roomDetails)
+    fetch(`${api}/createroom`, roomDetails)
       .then(res => res.json())
       .then(data => setRoom(data.id))
       .catch((err) => console.log(err))

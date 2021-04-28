@@ -4,6 +4,7 @@ import { Admin, Home, Room, Rooms, Register, Login, Create } from 'pages'
 import { Navigation, Loader } from 'components'
 import { TokenContext } from 'contexts'
 import { fetchWithToken } from 'utils'
+const { REACT_APP_API: api } = process.env
 
 const App = () => {
   const [token, setToken] = useState<string | null>(null)
@@ -18,7 +19,7 @@ const App = () => {
         setAuthenticating(false)
         return
       }
-      const res = await fetchWithToken({ endpoint: '/api/auth', token })
+      const res = await fetchWithToken({ endpoint: `${api}/auth`, token })
       if (res.auth === false) setToken(null)
       setAuthenticating(false)
     }

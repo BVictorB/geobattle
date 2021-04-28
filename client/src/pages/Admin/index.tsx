@@ -4,6 +4,7 @@ import Leaflet from 'leaflet'
 import { LocationMarker, Loader, Alert } from 'components'
 import { deCamelize, camelize } from 'utils'
 import './Admin.scss'
+const { REACT_APP_API: api } = process.env
 
 interface Location {
   coords: [number, number],
@@ -42,7 +43,7 @@ const Admin:FC = () => {
         })
       }
     
-      fetch('/api/getlocation', fetchDetails)
+      fetch(`${api}/getlocation`, fetchDetails)
         .then(res => res.json())
         .then(data => setLocationData(data))
         .catch((err) => console.log(err))
@@ -50,7 +51,7 @@ const Admin:FC = () => {
   }, [location])
 
   useEffect(() => {
-    fetch('/api/getlocations')
+    fetch(`${api}/getlocations`)
       .then(res => res.json())
       .then(data => setLocations(data))
       .catch((err) => console.log(err))
@@ -73,7 +74,7 @@ const Admin:FC = () => {
       })
     }
   
-    fetch('/api/createlocation', fetchDetails)
+    fetch(`${api}/createlocation`, fetchDetails)
       .then(res => res.json())
       .then(data => handleLocationRequest(data))
       .catch((err) => console.log(err))
@@ -88,7 +89,7 @@ const Admin:FC = () => {
       body: JSON.stringify({ id })
     }
   
-    fetch('/api/removelocation', fetchDetails)
+    fetch(`${api}/removelocation`, fetchDetails)
       .then(res => res.json())
       .then(data => handleLocationRequest(data))
       .catch((err) => console.log(err))

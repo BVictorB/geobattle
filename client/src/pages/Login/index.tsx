@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Alert, Input } from 'components'
 import { TokenContext } from 'contexts'
 import { AuthInterface } from 'interfaces'
+const { REACT_APP_API: api } = process.env
 
 const Login:FC = () => {
   const 
@@ -26,7 +27,7 @@ const Login:FC = () => {
       })
     }
   
-    fetch('/api/login', loginDetails)
+    fetch(`${api}/login`, loginDetails)
       .then(res => res.json())
       .then(data => handleLogin(data))
       .catch(err => console.log(err))

@@ -6,6 +6,7 @@ import { TokenContext } from 'contexts'
 import { fetchWithToken } from 'utils'
 import { RoomInterface } from 'interfaces'
 import './Room.scss'
+const { REACT_APP_API: api } = process.env
 
 let socket: Socket
 
@@ -19,7 +20,7 @@ const Room:FC = () => {
 
   useEffect(() => {
     const fetchRoom = async () => {
-      const res = await fetchWithToken({ endpoint: `/api/getroom/${id}`, token })
+      const res = await fetchWithToken({ endpoint: `${api}/getroom/${id}`, token })
       if (res.auth) {
         setRoom(res.room._id)
       } else {
@@ -32,7 +33,7 @@ const Room:FC = () => {
   }, [token, setToken, id])
 
   useEffect(() => {
-    socket = io('/api/')
+    socket = io(`${api}/`)
     return () => { socket.disconnect() }
   }, [])
 
