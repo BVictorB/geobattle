@@ -209,7 +209,7 @@ This is the admin panel, it is an interactive map with a sidebar where you can a
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412225-c3b43680-a836-11eb-8804-01a7ec3f90a9.png)
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412210-c020af80-a836-11eb-9a0d-301dc00f9067.png)
 
-## :scroll: &nbsp; Live version
+## :open_file_folder: &nbsp; Live version
 As mentioned before, the server side of this application is being hosted on [Heroku](https://heroku.com/) and the client side on [Vercel](https://vercel.com/), click [here](https://geobattle.victorboucher.dev/) to go to the live version. This is being hosted on a sub-domain of my personal website.
 
 ## :scroll: &nbsp; License
