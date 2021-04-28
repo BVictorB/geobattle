@@ -1,16 +1,16 @@
 # GeoBattle
 This project was created for the Real Time Web course during the Web Design and Development minor. GeoBattle is an online multiplayer game where you have to guess a city or location based on a satellite image. The players that are the fastest with guessing the correct city will gain the most points and eventually win the game! The project uses websockets to give live feedback to the users and is built with React to handle state efficiently.
 
-## :speech_balloon: First ideas
+## :speech_balloon: &nbsp; First ideas
 I first wanted to create an application where I would use live soccer data during soccer matches combined with static data (when a match would be played for example). This would be a good way to integrate websockets into an application.  
 When I started looking for companies that can deliver the live data of soccer matches, there were not any good ones available that were free. This data is worth a lot of money (which is understandable since there is such a big market for it), and after finding this out I decided to do something else.  
 Making an online multiplayer game sounded like a lot of fun to me, so I started thinking about what I could make. The first thing that popped into my head was a game called [Skribbl](https://skribbl.io/), I sometimes play this with friends, it is an online multiplayer game where everyone gets a turn on drawing something, whilest the others have to guess what the word was what the person that is drawing picked. You just guess in the same chat where you can also communicate with each other.  
 The idea of having a chat to communicate with each other but also to interact with the game appealed to me. I decided to make a same kind of game, but instead of guessing a word based on a drawing, you would have to guess a city or location based on a satellite image.
 
-## :rocket: Concept
+## :rocket: &nbsp; Concept
 The concept of GeoBattle is that you can create a room and invite your friends (or let random people join), and battle for the most points. A room has a set amount of rounds and time per round (decided by the person who creates the room), every round the players can guess what city is displayed and earn points when they guess correctly. At the end of the game there will be a winner (the person with the most points).
 
-## :clipboard: Features 
+## :clipboard: &nbsp; Features 
 Below is a list of features, I have used the MoSCoW method to categorize the features.
 
 * Must haves:
@@ -37,17 +37,17 @@ Below is a list of features, I have used the MoSCoW method to categorize the fea
   - [ ] Authentication using several services
   - [ ] Adding or following other people
 
-## :books: Tech Stack
+## :books: &nbsp; Tech Stack
 For this project I use the React framework with TypeScript and SCSS for the client side and Nodejs with regular JavaScript for the server side. Since we are working with real time data, a framework that handles state changes well (like React) is great to use since it is built for this kind of usage. If I would have to write all the code with vanilla JavaScript, it would take much more time and decrease my productivity and possibilities.  
 I use TypeScript since I share a lot of different kind of data between all my components, with TypeScript I can write strict code where functions and components only accept the types that I want them to receive. This improves my productivity and makes debugging and preventing bugs before they actually happen a lot easier. I have only worked with TypeScript before in a single project, so it still takes some time to get used to. But I already noticed the benefits of it.  
 I have also split up the server and client side code into two different folders, this is because I want to keep a clear overview of my code and keep my structure clean. This has been really beneficial for me, since I also host the server side code on [Heroku](https://heroku.com/) and the client side code on [Vercel](https://vercel.com/).
 
-##  :repeat: Data lifecycle diagram
+##  :repeat: &nbsp; Data lifecycle diagram
 All the data that moves around between the client, server, database and API.  
 ![Data lifecycle diagram](https://user-images.githubusercontent.com/10921830/116417000-2ad3ea00-a83b-11eb-9d61-31ce44c99431.png)
 
 
-## :paperclip: API
+## :paperclip: &nbsp; API
 I have used the [positionstack API](https://positionstack.com/) for this project. This API can do forward and reverse geocoding. This allows you to get coordinates of a location (and other information) when you do a request (forward geocoding) and get the name of a location when you already have the coordinates (reverse geocoding). This is great for my project since I have to check if people guess the correct location.  
 I have implemented the API in multiple ways:
 - Checking if a user guessed a location correctly (convert text to coordinates and checking the distance from the origional coordinates after that)
@@ -57,7 +57,7 @@ The API has 25000 free requests per month (which is more than enough for develop
 
 Example requests:
 
-### :arrow_right: Forward geocoding  
+### :arrow_right: &nbsp; Forward geocoding  
 Request url: http://api.positionstack.com/v1/forward?access_key=API_KEY&query=amsterdam  
 API response:
 ```json
@@ -83,7 +83,7 @@ API response:
 }
 ```
 
-### :arrow_left: Reverse geocoding  
+### :arrow_left: &nbsp; Reverse geocoding  
 Request url: http://api.positionstack.com/v1/reverse?access_key=API_KEY&query=48.858705,2.342865
 API response:
 ```json
@@ -111,15 +111,15 @@ API response:
 ```
 
 
-## :fireworks: Socket events
-- :link: join: The join event gets emitted from the client side as soon as someone joins a room, it gives the JSON Web Token that the user has stored (in localstorage and/or React state) and the MongoDB ObjectID to the server. The server then verifies the token, and (if valid) adds the user to the room. When the user gets added to the room all the other users get feedback.
-- :white_check_mark: ready: The ready event gets emitted from the client side once a player clicks on the 'ready' button in the lobby. This event does not emit any data, its single purpose is to let the server know that this player is ready. This then updates the roomData, when all players are ready the game starts.
-- :speech_balloon: message: The message event gets emitted from the server side, it just sends the name of a user and the message itself to all clients.
-- :speech_balloon: sendMessage: The sendMessage event gets emitted from the client side, once the server receives the sendMessage event it checks some information about the room so it knows how to handle the event. If the game is being played at the time of emitting this event, the server checks if this is a location, if it is it will show the distance to the correct location. If the user submitted the correct location the user will gain points and everyone will get feedback. If it is just a regular message everyone will get it displayed in the chat (unless the user is muted once they guessed the correct location in that round already).
-- :door: roomData: The roomData event is by far the most important one, it gets emitted from the server side to the client. The roomData event gets emitted every single time something updates in the Room database object. This contains all information about the room and the users in it.
-- :x: disconnect: This event is quite simple, once a user disconnects it removes them from the list of users and everyone will get an update on the roomData. Everyone will also get a message saying who disconnected.
+## :fireworks: &nbsp; Socket events
+- :link: &nbsp; join: The join event gets emitted from the client side as soon as someone joins a room, it gives the JSON Web Token that the user has stored (in localstorage and/or React state) and the MongoDB ObjectID to the server. The server then verifies the token, and (if valid) adds the user to the room. When the user gets added to the room all the other users get feedback.
+- :white_check_mark: &nbsp; ready: The ready event gets emitted from the client side once a player clicks on the 'ready' button in the lobby. This event does not emit any data, its single purpose is to let the server know that this player is ready. This then updates the roomData, when all players are ready the game starts.
+- :speech_balloon: &nbsp; message: The message event gets emitted from the server side, it just sends the name of a user and the message itself to all clients.
+- :speech_balloon: &nbsp; sendMessage: The sendMessage event gets emitted from the client side, once the server receives the sendMessage event it checks some information about the room so it knows how to handle the event. If the game is being played at the time of emitting this event, the server checks if this is a location, if it is it will show the distance to the correct location. If the user submitted the correct location the user will gain points and everyone will get feedback. If it is just a regular message everyone will get it displayed in the chat (unless the user is muted once they guessed the correct location in that round already).
+- :door: &nbsp; roomData: The roomData event is by far the most important one, it gets emitted from the server side to the client. The roomData event gets emitted every single time something updates in the Room database object. This contains all information about the room and the users in it.
+- :x: &nbsp; disconnect: This event is quite simple, once a user disconnects it removes them from the list of users and everyone will get an update on the roomData. Everyone will also get a message saying who disconnected.
 
-## :wrench: Dependencies
+## :wrench: &nbsp; Dependencies
 These are the most interesting dependencies that I've used during this project:
 
 ### socket.io
@@ -174,7 +174,7 @@ module.exports = User
 In this model I also trigger a function when a new user gets created just before it gets saved. This function hashes the password, so the original password does not actually get stored in the database.
 
 
-## :high_brightness: Final product
+## :high_brightness: &nbsp; Final product
 I am very satisfied with the final result of this project, I've put a lot of time and effort in creating this application, and am very happy how it turned out in such a small amount of time. Here are some impressions (or just go to the [live version](https://geobattle.victorboucher.dev/)):
 
 This is the register page, there is validation on every field. It checks if email adress is valid, and not already registered, checks if username is available and if passwords match. The validation happens on the server side, if anything is filled in incorrectly or an email/username is already registered it responds with an error message that then gets displayed to the client.  
@@ -209,14 +209,14 @@ This is the admin panel, it is an interactive map with a sidebar where you can a
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412225-c3b43680-a836-11eb-8804-01a7ec3f90a9.png)
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412210-c020af80-a836-11eb-9a0d-301dc00f9067.png)
 
-## :scroll: Live version
+## :scroll: &nbsp; Live version
 As mentioned before, the server side of this application is being hosted on [Heroku](https://heroku.com/) and the client side on [Vercel](https://vercel.com/), click [here](https://geobattle.victorboucher.dev/) to go to the live version. This is being hosted on a sub-domain of my personal website.
 
-## :scroll: License
+## :scroll: &nbsp; License
 This repo is licensed as MIT by Victor Boucher, 2021.  
 Click [here](https://github.com/BVictorB/geobattle/blob/master/LICENSE) if you want to read the license.
 
-## :inbox_tray: Install
+## :inbox_tray: &nbsp; Install
 
 - Clone this repo
 ```
