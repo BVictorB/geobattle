@@ -1,7 +1,7 @@
 import { FC, Dispatch, useEffect } from 'react'
 import { Marker, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
-import { logo } from 'assets'
+import { pin } from 'assets/images'
 
 interface Props {
   location: [number, number] | null,
@@ -9,10 +9,10 @@ interface Props {
 }
 
 const markerIcon = new L.Icon({
-  iconUrl: logo,
-  iconRetinaUrl: logo,
+  iconUrl: pin,
+  iconRetinaUrl: pin,
   popupAnchor:  [-0, -0],
-  iconSize: [90,45]
+  iconSize: [52,64]
 })
 
 const LocationMarker:FC<Props> = ({ location, setLocation }) => {

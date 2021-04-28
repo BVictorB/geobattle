@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { TokenContext } from 'contexts'
-import { logo } from 'assets'
+import { logo } from 'assets/images'
 import './Navigation.scss'
 
 const Navigation:FC = () => {
@@ -14,9 +14,10 @@ const Navigation:FC = () => {
 
   return (
     <nav className='m-navigation'>
-      <Link to='/'><img className='m-navigation__logo' src={logo} alt='GeoBattle logo' /></Link>
+      <img className='m-navigation__logo' src={logo} alt='GeoBattle logo' />
       {token ?
         <>
+          <Link to='/'>Home</Link>
           <Link to='/rooms'>Rooms</Link>
           <Link to='/create'>Create Room</Link>
           <button className='m-navigation__logout' onClick={() => logout()}>Log out</button>
