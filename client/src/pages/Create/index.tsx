@@ -36,7 +36,7 @@ const Create:FC = () => {
       })
     }
   
-    fetch('/createroom', roomDetails)
+    fetch('/api/createroom', roomDetails)
       .then(res => res.json())
       .then(data => setRoom(data.id))
       .catch((err) => console.log(err))

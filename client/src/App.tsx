@@ -18,7 +18,7 @@ const App = () => {
         setAuthenticating(false)
         return
       }
-      const res = await fetchWithToken({ endpoint: '/auth', token })
+      const res = await fetchWithToken({ endpoint: '/api/auth', token })
       if (res.auth === false) setToken(null)
       setAuthenticating(false)
     }

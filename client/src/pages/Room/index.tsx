@@ -19,7 +19,7 @@ const Room:FC = () => {
 
   useEffect(() => {
     const fetchRoom = async () => {
-      const res = await fetchWithToken({ endpoint: `/getroom/${id}`, token })
+      const res = await fetchWithToken({ endpoint: `/api/getroom/${id}`, token })
       if (res.auth) {
         setRoom(res.room._id)
       } else {
@@ -32,7 +32,7 @@ const Room:FC = () => {
   }, [token, setToken, id])
 
   useEffect(() => {
-    socket = io('/')
+    socket = io('/api/')
     return () => { socket.disconnect() }
   }, [])
 

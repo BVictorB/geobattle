@@ -14,7 +14,7 @@ const Rooms:FC = () => {
 
   useEffect(() => {
     const fetchRooms = async () => {
-      const res = await fetchWithToken({ endpoint: '/rooms', token })
+      const res = await fetchWithToken({ endpoint: '/api/rooms', token })
       if (res.auth) {
         setOpenRooms(res.data.filter((room: RoomInterface) => !room.started))
         setPlayingRooms(res.data.filter((room: RoomInterface) => room.started && !room.finished))

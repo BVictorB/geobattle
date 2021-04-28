@@ -42,7 +42,7 @@ const Admin:FC = () => {
         })
       }
     
-      fetch('/getlocation', fetchDetails)
+      fetch('/api/getlocation', fetchDetails)
         .then(res => res.json())
         .then(data => setLocationData(data))
         .catch((err) => console.log(err))
@@ -50,7 +50,7 @@ const Admin:FC = () => {
   }, [location])
 
   useEffect(() => {
-    fetch('/getlocations')
+    fetch('/api/getlocations')
       .then(res => res.json())
       .then(data => setLocations(data))
       .catch((err) => console.log(err))
@@ -73,7 +73,7 @@ const Admin:FC = () => {
       })
     }
   
-    fetch('/createlocation', fetchDetails)
+    fetch('/api/createlocation', fetchDetails)
       .then(res => res.json())
       .then(data => handleLocationRequest(data))
       .catch((err) => console.log(err))
@@ -88,7 +88,7 @@ const Admin:FC = () => {
       body: JSON.stringify({ id })
     }
   
-    fetch('/removelocation', fetchDetails)
+    fetch('/api/removelocation', fetchDetails)
       .then(res => res.json())
       .then(data => handleLocationRequest(data))
       .catch((err) => console.log(err))

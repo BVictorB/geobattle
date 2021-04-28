@@ -30,7 +30,7 @@ const Register:FC = () => {
       })
     }
   
-    fetch('/register', registerDetails)
+    fetch('/api/register', registerDetails)
       .then(res => res.json())
       .then(data => handleLogin(data))
       .catch((err) => console.log(err))

@@ -26,7 +26,7 @@ const Login:FC = () => {
       })
     }
   
-    fetch('/login', loginDetails)
+    fetch('/api/login', loginDetails)
       .then(res => res.json())
       .then(data => handleLogin(data))
       .catch(err => console.log(err))

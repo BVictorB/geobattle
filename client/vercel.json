@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api", "destination": "https://geobattle-bvictorb.herokuapp.com/" }
+  ]
+}
