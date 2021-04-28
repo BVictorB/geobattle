@@ -108,18 +108,65 @@ API response:
 }
 ```
 
+
 ## :fireworks: Socket events
+...
+
 
 ## :wrench: Dependencies
-Here are some dependencies that I've used during this project.
+These are the most interesting dependencies that I've used during this project:
 
-### Leaflet
+### socket.io
+This projects makes use of websockets to make everything work perfectly in real-time. Socket.io is a dependency that I've used on both the server and client side. With Socket.io you can exchange data in real-time between your server and client, this is how I made the game work on a single page without any GET/POST requests. The most simple use of Socket.io would be a chat application, this also illustrates the use of websockets very well since it is a very simple use-case.
 
-### Socket.io
+### leaflet / react-leaflet
+This dependency is awesome. I wanted to use Google Maps at first to generate the satellite images, but since Google Maps costs money I didn't really want to do that. I've already seen Leaflet in the past, it is an open-source library for interactive maps. I have used the react-leaflet dependency in combination with this to get better integration into React, and this works really well! Changing the coordinates that the map is displaying (updating state) works great and 'flying' to different coordinates (in the admin panel) worked out of the box and looks amazing. 
 
-### JWT
+### jsonwebtoken
+I have used JSON Web Tokens for the authentication in this application. When a user signs in they receive a token, this token gets stored in their localstorage (if available) and in the React (global) state. The token lasts for one hour and can be used to authenticate the user on different requests. The server then verifies the token and if the token is still valid, passes back data (or whatever the request might do). The tokens store data, in my case I use the MongoDB ObjectID of the user so I know which token belongs to who.  
+This is the code for creating a token and sending it back to the user when they succesfully log in:
+```javascript
+const token = jwt.sign({ id }, 
+  process.env.JWT_SECRET, 
+  { expiresIn: 3600 })
 
-### Mongoose
+res.json({
+  auth: true,
+  token
+})
+```
+
+### mongoose
+Mongoose is used for the connection and modification of my MongoDB database. Mongoose is great since you can create models for different MongoDB collections. In these models you can decide what kind of data type different fields need to be. This is great for security and error prevention.  
+A simple model looks like this:
+```javascript
+const 
+  mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  hashPassword = require('../utils/hashPassword')
+
+const userSchema = new Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+})
+
+userSchema.pre('save', hashPassword)
+const User = mongoose.model('users', userSchema)
+
+module.exports = User
+```
+In this model I also trigger a function when a new user gets created just before it gets saved. This function hashes the password, so the original password does not actually get stored in the database.
+
 
 ## :high_brightness: Final product
 I am very satisfied with the final result of this project, I've put a lot of time and effort in creating this application, and am very happy how it turned out in such a small amount of time. Here are some impressions (or just go to the [live version](https://geobattle.victorboucher.dev/)):
@@ -155,6 +202,10 @@ This is the admin panel, it is an interactive map with a sidebar where you can a
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412229-c57dfa00-a836-11eb-9a5d-5b9956510593.png)
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412225-c3b43680-a836-11eb-8804-01a7ec3f90a9.png)
 ![GeoBattle screenshot](https://user-images.githubusercontent.com/10921830/116412210-c020af80-a836-11eb-9a0d-301dc00f9067.png)
+
+## License
+
+
 
 ## :inbox_tray: Install
 
