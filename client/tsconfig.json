@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -19,7 +18,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@components": ["components"],
+      "@interfaces": ["interfaces"],
+      "@utils": ["utils"],
+      "@pages": ["pages"],
+      "@contexts": ["contexts"],
+      "@assets": ["assets"],
+      "@icons": ["assets/icons"]
+    }
   },
   "include": [
     "src"
