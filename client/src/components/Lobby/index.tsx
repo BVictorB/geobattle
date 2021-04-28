@@ -8,22 +8,16 @@ import './Lobby.scss'
 interface Props {
   socket: Socket,
   name: string | null,
-  gameState: string
+  finished: boolean,
+  roomData: RoomInterface | null
 }
 
-const Lobby:FC<Props> = ({ socket, name, gameState }) => {
-  const [roomData, setRoomData] = useState<RoomInterface>()
-
-  useEffect(() => {
-    socket.on('roomData', (data: RoomInterface) => {
-      setRoomData(data)
-    })
-  }, [socket])
-
+const Lobby:FC<Props> = ({ socket, name, finished, roomData }) => {
   if (!roomData) return <Loader />
 
-  if (gameState === 'finished') {
+  if (finished) {
     const winner = roomData.users.sort((a, b) => b.points - a.points)[0]
+
     return (
       <div className='m-lobby'>
       <h2>Lobby</h2>

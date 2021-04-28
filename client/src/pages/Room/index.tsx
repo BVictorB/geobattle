@@ -14,7 +14,9 @@ const Room:FC = () => {
   const 
     [name, setName] = useState<string | null>(null),
     [room, setRoom] = useState<string>(),
-    [gameState, setGameState] = useState<string>('lobby'),
+    [finished, setFinished] = useState<boolean>(false),
+    [playing, setPlaying] = useState<boolean>(false),
+    [roomData, setRoomData] = useState<RoomInterface | null>(null),
     { id } = useParams<any>(),
     { token, setToken } = useContext(TokenContext)
 
@@ -46,12 +48,13 @@ const Room:FC = () => {
 
   useEffect(() => {
     socket.on('roomData', (data: RoomInterface) => {
-      if (data.finished) return setGameState('finished')
-      if (data.started) {
-        setGameState('playing')
-      } else {
-        setGameState('lobby')
+      setRoomData(data)
+      if (data.finished) {
+        setFinished(true)
+        setPlaying(false)
+        return
       }
+      data.started && setPlaying(true)
     })
   }, [])
 
@@ -59,11 +62,8 @@ const Room:FC = () => {
 
   return (
     <main>
-      {gameState === 'playing' ? 
-        <Map socket={socket} />
-      :
-        <Lobby socket={socket} name={name} gameState={gameState} />
-      }
+      {playing && <Map socket={socket} />}
+      {!playing && <Lobby socket={socket} name={name} finished={finished} roomData={roomData} />}
       <div className='p-room'>
         <Chat socket={socket} name={name} />
       </div>
