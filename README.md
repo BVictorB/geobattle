@@ -38,8 +38,21 @@ Below is a list of features, I have used the MoSCoW method to categorize the fea
 ## Tech Stack
 For this project I use the React framework with TypeScript and SCSS for the client side and Nodejs with regular JavaScript for the server side. Since we are working with real time data, a framework that handles state changes well (like React) is great to use since it is built for this kind of usage. If I would have to write all the code with vanilla JavaScript, it would take much more time and decrease my productivity and possibilities. I use TypeScript since I share a lot of different kind of data between all my components, with TypeScript I can write strict code where functions and components only accept the types that I want them to receive. This improves my productivity and makes debugging and preventing bugs before they actually happen a lot easier. I have only worked with TypeScript before in a single project, so it still takes some time to get used to. But I already noticed the benefits of it.
 
+## Data lifecycle diagram
+All the data that moves around between the client, server, database and API.
+![Data lifecycle diagram](https://user-images.githubusercontent.com/10921830/116404257-c3b03880-a82e-11eb-8098-da8d3fdad1cd.png)
+
 ## Dependencies
-Coming soon...
+Here are some dependencies that I've used during this project.
+
+### Leaflet
+
+### Socket.io
+
+### JWT
+
+### Mongoose
+
 
 ## Install
 
