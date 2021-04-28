@@ -5,7 +5,11 @@ const
   express = require('express'),
   app = express(),
   server = http.createServer(app),
-  io = require('socket.io')(server),
+  io = require('socket.io')(server, {
+    cors: {
+      origin: '*'
+    }
+  }),
   cors = require('cors'),
   mongoose = require('mongoose'),
   db = mongoose.connection,
