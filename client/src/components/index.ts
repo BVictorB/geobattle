@@ -1,6 +1,7 @@
 export { default as Alert } from './Alert'
 export { default as Chat } from './Chat'
 export { default as ChatInput } from './ChatInput'
+export { default as Leaderboards } from './Leaderboards'
 export { default as Input } from './Input'
 export { default as Loader } from './Loader'
 export { default as Lobby } from './Lobby'

@@ -10,7 +10,8 @@ const
   getlocation = require('./routes/getlocation'),
   getlocations = require('./routes/getlocations'),
   createlocation = require('./routes/createlocation'),
-  removelocation = require('./routes/removelocation')
+  removelocation = require('./routes/removelocation'),
+  getleaderboards = require('./routes/getleaderboards')
 
 const
   authenticate = require('./middleware/authenticate')
@@ -26,5 +27,6 @@ router
   .get('/getlocations', getlocations)
   .post('/createlocation', createlocation)
   .post('/removelocation', removelocation)
+  .get('/getleaderboards', getleaderboards)
 
 module.exports = router

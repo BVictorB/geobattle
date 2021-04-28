@@ -10,6 +10,14 @@
   &__title {
     font-size: 2em;
     line-height: 1.2;
+
+    &--small {
+      font-size: 1.3em;
+    }
+  }
+
+  &__list {
+    font-size: 1.1em;
   }
 
   &__user {

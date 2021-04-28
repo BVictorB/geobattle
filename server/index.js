@@ -52,9 +52,15 @@ const finishRoom = (room) => {
     $set: { finished: true }
   }, err => err && console.log(err))
 
-  Room.updateMany({ _id: room.id }, 
-    { $set: { 'users.$[].guessed': false } 
+  Room.updateMany({ _id: room.id }, { 
+    $set: { 'users.$[].guessed': false } 
   }, err => err && console.log(err))
+
+  room.users.forEach(user => {
+    User.updateOne({ _id: user.id }, {
+      $inc: { points: user.points }
+    }, err => err && console.log(err))
+  })
 }
 
 const watchRooms = () => {

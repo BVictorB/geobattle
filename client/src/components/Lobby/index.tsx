@@ -1,4 +1,5 @@
-import { FC, useState, useEffect } from 'react'
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
 import { Socket } from 'socket.io-client'
 import { RoomInterface } from 'interfaces'
 import { Loader } from 'components'
@@ -14,19 +15,23 @@ interface Props {
 
 const Lobby:FC<Props> = ({ socket, name, finished, roomData }) => {
   if (!roomData) return <Loader />
-
+  
   if (finished) {
     const winner = roomData.users.sort((a, b) => b.points - a.points)[0]
 
     return (
       <div className='m-lobby'>
-      <h2>Lobby</h2>
-      <p>{winner.username} has won with {winner.points} points!</p>
-      <h3>Scoreboard:</h3>
-      {roomData.users.sort((a, b) => b.points - a.points).map((user, index) => (
-        <p key={index}>{index + 1}. {user.username}: {user.points}</p>
-      ))}
-    </div>
+        <h2 className='m-lobby__title'>Lobby</h2>
+        <p>The game has finished.</p>
+        <p>{winner.username} has won with {winner.points} points!</p>
+        <Link to='/create'>
+          <button className='wide-button'>Click here to create a new room</button>
+        </Link>
+        <h3 className='m-lobby__title--small'>Scoreboard:</h3>
+        {roomData.users.sort((a, b) => b.points - a.points).map((user, index) => (
+          <p className='m-lobby__list' key={index}>{index + 1}. {user.username}: {user.points}</p>
+        ))}
+      </div>
     )
   }
 
