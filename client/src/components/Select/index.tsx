@@ -1,5 +1,5 @@
 import { FC, Dispatch } from 'react'
-import { camelize } from '@utils'
+import { camelize } from 'utils'
 import './Select.scss'
 
 interface Props {

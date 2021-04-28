@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from 'react'
 import { Socket } from 'socket.io-client'
-import { RoomInterface } from '@interfaces'
-import { Loader } from '@components'
-import { Success, Error } from '@icons'
+import { RoomInterface } from 'interfaces'
+import { Loader } from 'components'
+import { Success, Error } from 'assets/icons'
 import './Lobby.scss'
 
 interface Props {

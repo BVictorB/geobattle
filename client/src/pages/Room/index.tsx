@@ -1,10 +1,10 @@
 import { FC, useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router'
 import { io, Socket } from 'socket.io-client'
-import { Chat, Loader, Lobby, Map } from '@components'
-import { TokenContext } from '@contexts'
-import { fetchWithToken } from '@utils'
-import { RoomInterface } from '@interfaces'
+import { Chat, Loader, Lobby, Map } from 'components'
+import { TokenContext } from 'contexts'
+import { fetchWithToken } from 'utils'
+import { RoomInterface } from 'interfaces'
 import './Room.scss'
 
 let socket: Socket

@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from 'react'
 import { Socket } from 'socket.io-client'
-import { roundNum } from '@utils'
-import { Loader } from '@components'
-import { RoomInterface } from '@interfaces'
+import { roundNum } from 'utils'
+import { Loader } from 'components'
+import { RoomInterface } from 'interfaces'
 import './RoomInfo.scss'
 
 interface Props {

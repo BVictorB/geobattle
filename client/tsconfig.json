@@ -20,15 +20,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "./src",
-    "paths": {
-      "@components": ["components"],
-      "@interfaces": ["interfaces"],
-      "@utils": ["utils"],
-      "@pages": ["pages"],
-      "@contexts": ["contexts"],
-      "@assets": ["assets"],
-      "@icons": ["assets/icons"]
-    }
   },
   "include": [
     "src"

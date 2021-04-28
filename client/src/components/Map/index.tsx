@@ -2,7 +2,7 @@ import { FC, useState, useMemo, useEffect } from 'react'
 import Leaflet from 'leaflet'
 import { Socket } from 'socket.io-client'
 import { MapContainer, TileLayer } from 'react-leaflet'
-import { RoomInterface } from '@interfaces'
+import { RoomInterface } from 'interfaces'
 import 'leaflet/dist/leaflet.css'
 import './Map.scss'
 

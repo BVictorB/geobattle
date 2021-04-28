@@ -1,7 +1,7 @@
 import { FC, Dispatch, useEffect } from 'react'
 import { Marker, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
-import { logo } from '@assets'
+import { logo } from 'assets'
 
 interface Props {
   location: [number, number] | null,

@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { TokenContext } from '@contexts'
-import { logo } from '@assets'
+import { TokenContext } from 'contexts'
+import { logo } from 'assets'
 import './Navigation.scss'
 
 const Navigation:FC = () => {

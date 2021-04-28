@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import Leaflet from 'leaflet'
-import { LocationMarker, Loader, Alert } from '@components'
-import { deCamelize, camelize } from '@utils'
+import { LocationMarker, Loader, Alert } from 'components'
+import { deCamelize, camelize } from 'utils'
 import './Admin.scss'
 
 interface Location {

@@ -1,5 +1,5 @@
 import { FC, Dispatch, FormEvent } from 'react'
-import { Send } from '@icons'
+import { Send } from 'assets/icons'
 import './ChatInput.scss'
 
 interface Props {

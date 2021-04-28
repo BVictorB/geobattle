@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { RoomInterface } from '@interfaces'
+import { RoomInterface } from 'interfaces'
 import './RoomCard.scss'
 
 interface Props {

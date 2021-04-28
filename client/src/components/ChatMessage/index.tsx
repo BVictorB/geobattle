@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { MessageInterface } from '@interfaces'
+import { MessageInterface } from 'interfaces'
 import './ChatMessage.scss'
 
 interface Props {

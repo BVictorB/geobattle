@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
-import { Admin, Home, Room, Rooms, Register, Login, Create } from '@pages'
-import { Navigation, Loader } from '@components'
-import { TokenContext } from '@contexts'
-import { fetchWithToken } from '@utils'
+import { Admin, Home, Room, Rooms, Register, Login, Create } from 'pages'
+import { Navigation, Loader } from 'components'
+import { TokenContext } from 'contexts'
+import { fetchWithToken } from 'utils'
 
 const App = () => {
   const [token, setToken] = useState<string | null>(null)

@@ -1,7 +1,7 @@
 import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router'
-import { Input, Select, Radio, Alert } from '@components'
-import { TokenContext } from '@contexts'
+import { Input, Select, Radio, Alert } from 'components'
+import { TokenContext } from 'contexts'
 
 const Create:FC = () => {
   const 

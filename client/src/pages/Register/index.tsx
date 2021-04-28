@@ -1,8 +1,8 @@
 import { FC, FormEvent, useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
-import { Alert, Input } from '@components'
-import { TokenContext } from '@contexts'
-import { AuthInterface } from '@interfaces'
+import { Alert, Input } from 'components'
+import { TokenContext } from 'contexts'
+import { AuthInterface } from 'interfaces'
 
 const Register:FC = () => {
   const 

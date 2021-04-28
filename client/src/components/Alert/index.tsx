@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { Error, Warning, Success } from '@icons'
+import { Error, Warning, Success } from 'assets/icons'
 import './Alert.scss'
 
 interface Props {

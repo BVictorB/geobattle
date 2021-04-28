@@ -1,6 +1,6 @@
 import { FC, useRef, useEffect } from 'react'
-import { ChatMessage } from '@components'
-import { MessageInterface } from '@interfaces'
+import { ChatMessage } from 'components'
+import { MessageInterface } from 'interfaces'
 import './ChatMessages.scss'
 
 interface Props {
