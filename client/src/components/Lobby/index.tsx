@@ -16,14 +16,12 @@ interface Props {
 const Lobby:FC<Props> = ({ socket, name, finished, roomData }) => {
   if (!roomData) return <Loader />
   
-  if (finished) {
-    const winner = roomData.users.sort((a, b) => b.points - a.points)[0]
-
+  if (finished && roomData.winner) {
     return (
       <div className='m-lobby'>
         <h2 className='m-lobby__title'>Lobby</h2>
         <p>The game has finished.</p>
-        <p>{winner.username} has won with {winner.points} points!</p>
+        <p>{roomData.winner}</p>
         <Link to='/create'>
           <button className='wide-button'>Click here to create a new room</button>
         </Link>

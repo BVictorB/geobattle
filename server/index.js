@@ -56,6 +56,13 @@ const finishRoom = (room) => {
     $set: { 'users.$[].guessed': false } 
   }, err => err && console.log(err))
 
+  const winner = room.users.sort((a, b) => b.points - a.points)[0]
+  const winnerText = `${winner.username} has won with ${winner.points} points!`
+
+  Room.updateOne({ _id: room.id }, { 
+    $set: { winner: winnerText }
+  }, err => err && console.log(err))
+
   room.users.forEach(user => {
     User.updateOne({ _id: user.id }, {
       $inc: { points: user.points }
@@ -175,8 +182,7 @@ io.on('connect', (socket) => {
     }
 
     const location = await getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.API_KEY}&query=${message}`)
-
-    if (!location.data?.[0] || location.data?.[0].type !== 'locality') {
+    if (!location || !location.data?.[0] || location.data?.[0].type !== 'locality') {
       io.to(currentRoom).emit('message', { user: connectedUser.username, text: message })
       callback()
       return

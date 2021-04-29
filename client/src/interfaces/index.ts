@@ -18,7 +18,8 @@ export interface RoomInterface {
   round: number,
   timeleft: number,
   started: boolean,
-  finished: boolean
+  finished: boolean,
+  winner: string
 }
 
 export interface MessageInterface {

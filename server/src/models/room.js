@@ -36,6 +36,9 @@ const roomSchema = new Schema({
   finished: {
     type: Boolean,
     default: false
+  },
+  winner: {
+    type: String
   }
 })
 
