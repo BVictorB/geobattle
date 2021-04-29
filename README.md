@@ -1,5 +1,25 @@
 ![geobattle logo?-01](https://user-images.githubusercontent.com/10921830/116479936-c176ca00-a880-11eb-931c-a4d3938cc018.png)
 
+- [GeoBattle](#geobattle)
+  * [:speech_balloon: &nbsp; First ideas](#speech_balloon--first-ideas)
+  * [:rocket: &nbsp; Concept](#rocket--concept)
+  * [:clipboard: &nbsp; Features](#clipboard--features)
+  * [:books: &nbsp; Tech Stack](#books--tech-stack)
+  * [:repeat: &nbsp; Data lifecycle diagram](#repeat--data-lifecycle-diagram)
+  * [:paperclip: &nbsp; API](#paperclip--api)
+    + [:arrow_right: &nbsp; Forward geocoding](#arrow-right--forward-geocoding)
+    + [:arrow_left: &nbsp; Reverse geocoding](#arrow-left--reverse-geocoding)
+  * [:fireworks: &nbsp; Socket events](#fireworks--socket-events)
+  * [:wrench: &nbsp; Dependencies](#-wrench---nbsp--dependencies)
+    + [socket.io](#socketio)
+    + [leaflet / react-leaflet](#leaflet--react-leaflet)
+    + [jsonwebtoken](#jsonwebtoken)
+    + [mongoose](#mongoose)
+  * [:high_brightness: &nbsp; Final product](#high-brightness--final-product)
+  * [:open_file_folder: &nbsp; Live version](#open-file-folder--live-version)
+  * [:scroll: &nbsp; License](#scroll--license)
+  * [:inbox_tray: &nbsp; Install](#inbox-tray--install)
+
 # GeoBattle
 This project was created for the Real Time Web course during the Web Design and Development minor. GeoBattle is an online multiplayer game where you have to guess a city or location based on a satellite image. The players that are the fastest with guessing the correct city will gain the most points and eventually win the game! The project uses websockets to give live feedback to the users and is built with React to handle state efficiently.
 
