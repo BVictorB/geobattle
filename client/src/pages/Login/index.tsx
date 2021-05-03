@@ -50,7 +50,6 @@ const Login:FC = () => {
         <Input 
           label={'Email adress'}
           onChange={setEmail}
-          autoFocus={true}
         />
         <Input 
           label={'Password'}
